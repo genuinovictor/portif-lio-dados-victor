@@ -1,0 +1,2015 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title>João Victor Genuino da Silva | Analista de dados pleno</title>
+<meta name="description" content="Portfólio de João Victor Genuino da Silva, analista de dados pleno: galeria com 21 tipos de gráfico e análises interativas em SQL, BI e estatística.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600..800&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F2F5F9; --surface:#FFFFFF; --surface-2:#E9EEF5; --ink:#0F1B2D; --ink-2:#4B5B72; --ink-3:#74849B; --line:#D3DBE6;
+  --brand:#2A55F5; --brand-ink:#FFFFFF; --brand-soft:rgba(42,85,245,.10); --accent:#F0A202;
+  --c1:#2A55F5; --c2:#0FA3A3; --c3:#E59A00; --c4:#D6336C; --c5:#7048E8; --c6:#6B7A90;
+  --good:#0F7A57; --bad:#C4203F; --warn:#9A6200;
+  --good-bg:rgba(15,122,87,.12); --bad-bg:rgba(196,32,63,.12); --warn-bg:rgba(229,154,0,.18);
+  --heat:42,85,245; --heat-ink:#FFFFFF;
+  --code-bg:#0E1729; --code-ink:#D5E0F5; --code-mute:#7C8CA8; --code-kw:#8FB0FF; --code-str:#7FD6A8; --code-num:#F5B83D; --code-fn:#E6A8FF; --code-line:#22314D;
+  --font-display:'Bricolage Grotesque','Segoe UI',system-ui,sans-serif;
+  --font-body:'Instrument Sans','Segoe UI',system-ui,-apple-system,sans-serif;
+  --font-mono:'JetBrains Mono',ui-monospace,'SFMono-Regular',Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0A111E; --surface:#111B2D; --surface-2:#182338; --ink:#E8EEF8; --ink-2:#A2B0C6; --ink-3:#7D8DA5; --line:#243350;
+    --brand:#7396FF; --brand-ink:#0A111E; --brand-soft:rgba(115,150,255,.14); --accent:#F5B83D;
+    --c1:#7396FF; --c2:#2CC7C7; --c3:#F5B83D; --c4:#F06595; --c5:#9F7FFF; --c6:#8FA0B8;
+    --good:#3DD6A0; --bad:#FF6B88; --warn:#F5B83D;
+    --good-bg:rgba(61,214,160,.14); --bad-bg:rgba(255,107,136,.16); --warn-bg:rgba(245,184,61,.16);
+    --heat:115,150,255; --heat-ink:#0A111E; --code-bg:#0A1322;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0A111E; --surface:#111B2D; --surface-2:#182338; --ink:#E8EEF8; --ink-2:#A2B0C6; --ink-3:#7D8DA5; --line:#243350;
+  --brand:#7396FF; --brand-ink:#0A111E; --brand-soft:rgba(115,150,255,.14); --accent:#F5B83D;
+  --c1:#7396FF; --c2:#2CC7C7; --c3:#F5B83D; --c4:#F06595; --c5:#9F7FFF; --c6:#8FA0B8;
+  --good:#3DD6A0; --bad:#FF6B88; --warn:#F5B83D;
+  --good-bg:rgba(61,214,160,.14); --bad-bg:rgba(255,107,136,.16); --warn-bg:rgba(245,184,61,.16);
+  --heat:115,150,255; --heat-ink:#0A111E; --code-bg:#0A1322;
+}
+
+*,*::before,*::after{box-sizing:inherit}
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-behavior:smooth;scroll-padding-top:calc(72px + env(safe-area-inset-top,0px));-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.6 var(--font-body);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+h1,h2,h3,h4{font-family:var(--font-display);font-weight:700;letter-spacing:-.02em;line-height:1.12;margin:0}
+p{margin:0}
+a{color:var(--brand);text-underline-offset:3px}
+button,select,input{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--brand);outline-offset:2px;border-radius:4px}
+.wrap{width:100%;max-width:1180px;margin:0 auto;padding-left:clamp(16px,4vw,32px);padding-right:clamp(16px,4vw,32px)}
+.num{font-variant-numeric:tabular-nums}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.muted{color:var(--ink-2)}
+.small{font-size:.875rem}
+
+/* ---------- navegação ---------- */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.nav-in{display:flex;align-items:center;gap:20px;height:60px}
+.brand{font-family:var(--font-display);font-weight:800;font-size:1.05rem;letter-spacing:-.02em;color:var(--ink);text-decoration:none;white-space:nowrap}
+.nav-links{display:flex;gap:2px;margin-left:auto;overflow-x:auto;scrollbar-width:none}
+.nav-links::-webkit-scrollbar{display:none}
+.nav-links a{color:var(--ink-2);text-decoration:none;font-size:.9rem;font-weight:500;padding:8px 11px;border-radius:8px;white-space:nowrap}
+.nav-links a:hover{color:var(--ink);background:var(--surface-2)}
+.icon-btn{flex:none;width:38px;height:38px;border-radius:10px;border:1px solid var(--line);background:var(--surface);display:grid;place-items:center;cursor:pointer;color:var(--ink)}
+.icon-btn:hover{background:var(--surface-2)}
+.icon-btn svg{width:18px;height:18px}
+.ico-sun{display:none}
+:root[data-theme="dark"] .ico-sun{display:block}
+:root[data-theme="dark"] .ico-moon{display:none}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .ico-sun{display:block}:root:not([data-theme="light"]) .ico-moon{display:none}}
+
+/* ---------- herói ---------- */
+.hero{padding:clamp(40px,7vw,88px) 0 clamp(36px,5vw,64px)}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1.02fr) minmax(0,.98fr);gap:clamp(28px,5vw,64px);align-items:center}
+.hero h1{font-size:clamp(2.35rem,5.4vw,4.3rem);font-weight:800;line-height:1.02;letter-spacing:-.035em;text-wrap:balance}
+.hero-lead{margin-top:22px;font-size:1.13rem;color:var(--ink-2);max-width:54ch}
+.hero-lead strong{color:var(--ink);font-weight:600}
+.cta-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 20px;border-radius:10px;font-weight:600;font-size:.98rem;text-decoration:none;border:1px solid var(--brand);background:var(--brand);color:var(--brand-ink);cursor:pointer}
+.btn:hover{filter:brightness(1.08)}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.btn.ghost:hover{background:var(--surface-2);filter:none}
+.btn.sm{padding:7px 12px;font-size:.85rem;border-radius:8px}
+
+.console{background:var(--code-bg);color:var(--code-ink);border-radius:14px;border:1px solid var(--code-line);overflow:hidden;box-shadow:0 24px 60px -30px rgba(10,20,50,.55)}
+.console-bar{display:flex;justify-content:space-between;gap:12px;padding:11px 16px;border-bottom:1px solid var(--code-line);font:500 .78rem var(--font-mono);color:var(--code-mute)}
+.console-bar .live{color:var(--code-str)}
+.console pre{margin:0;padding:16px 18px;font:400 .82rem/1.65 var(--font-mono);min-height:15.7em;white-space:pre-wrap;overflow-x:auto}
+.console-res{border-top:1px solid var(--code-line);padding:6px 6px 10px}
+.console-res table{width:100%;border-collapse:collapse;font:400 .8rem var(--font-mono)}
+.console-res th{text-align:left;color:var(--code-mute);font-weight:500;padding:8px 12px}
+.console-res th:not(:first-child),.console-res td:not(:first-child){text-align:right}
+.console-res td{padding:6px 12px;border-top:1px solid var(--code-line)}
+.console-res tr.rw{opacity:0;transform:translateY(4px);transition:opacity .35s,transform .35s}
+.console-res tr.rw.on{opacity:1;transform:none}
+.hero-note{margin-top:12px;font-size:.84rem;color:var(--ink-3)}
+
+.facts{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--surface)}
+.facts-in{display:grid;grid-template-columns:repeat(4,minmax(0,1fr))}
+.fact{padding:22px clamp(12px,2vw,26px);border-left:1px solid var(--line)}
+.fact:first-child{border-left:0;padding-left:0}
+.fact b{display:block;font:800 clamp(1.5rem,2.6vw,2.1rem)/1.1 var(--font-display);letter-spacing:-.03em}
+.fact span{display:block;margin-top:4px;font-size:.88rem;color:var(--ink-2)}
+
+/* ---------- seções ---------- */
+section.blk{padding:clamp(56px,8vw,104px) 0}
+section.alt{background:var(--surface);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.sec-head{max-width:66ch;margin-bottom:clamp(24px,4vw,44px)}
+.sec-head h2{font-size:clamp(1.85rem,3.6vw,2.7rem);letter-spacing:-.03em;text-wrap:balance}
+.sec-head p{margin-top:14px;color:var(--ink-2);font-size:1.05rem}
+
+/* ---------- laboratório ---------- */
+.tabs{display:flex;gap:4px;border-bottom:1px solid var(--line);overflow-x:auto;scrollbar-width:thin;margin-bottom:22px}
+.tab{flex:none;background:none;border:0;padding:12px 14px;font-weight:600;font-size:.95rem;color:var(--ink-2);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;white-space:nowrap}
+.tab:hover{color:var(--ink)}
+.tab[aria-selected="true"]{color:var(--brand);border-bottom-color:var(--brand)}
+.tabpanel[hidden]{display:none}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:clamp(14px,2vw,22px)}
+.panel h3{font-size:1.02rem;margin-bottom:12px;letter-spacing:-.01em}
+.panel-h{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:10px}
+.panel-h h3{margin:0}
+.grid{display:grid;gap:16px}
+.g2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.g-main{grid-template-columns:minmax(0,1.7fr) minmax(0,1fr)}
+.g3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.mt{margin-top:16px}
+.filters{display:flex;flex-wrap:wrap;gap:12px 18px;align-items:end;margin-bottom:18px}
+.field{display:flex;flex-direction:column;gap:5px;font-size:.82rem;color:var(--ink-2);font-weight:500}
+.field select,.field input{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:8px 10px;min-width:150px;font-size:.92rem;color:var(--ink)}
+.field input[type=range]{padding:0;min-width:160px;accent-color:var(--brand)}
+.field input[type=number]{min-width:120px}
+.kpis{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;margin-bottom:16px}
+.kpi{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.kpi .l{font-size:.82rem;color:var(--ink-2);font-weight:500}
+.kpi .v{font:700 1.5rem/1.2 var(--font-display);letter-spacing:-.02em;margin-top:4px}
+.kpi .d{font-size:.8rem;margin-top:4px;font-weight:600}
+.pos{color:var(--good)}.neg{color:var(--bad)}.neu{color:var(--ink-3)}
+.kpis.k4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.chart-box{position:relative;height:290px}
+.chart-box.tall{height:360px}
+.chart-box.short{height:250px}
+.insights{display:grid;gap:10px;margin:0;padding:0;list-style:none}
+.insights li{padding-left:16px;border-left:3px solid var(--accent);font-size:.95rem;color:var(--ink-2)}
+.insights li strong{color:var(--ink);font-weight:600}
+.tbl-wrap{overflow-x:auto}
+table.tbl{width:100%;border-collapse:collapse;font-size:.9rem}
+.tbl th{text-align:left;font-weight:600;color:var(--ink-2);font-size:.8rem;padding:8px 10px;border-bottom:1px solid var(--line);white-space:nowrap}
+.tbl td{padding:9px 10px;border-bottom:1px solid var(--line);white-space:nowrap}
+.tbl tr:last-child td{border-bottom:0}
+.tbl .r{text-align:right}
+.tbl td.wrapc{white-space:normal;min-width:220px;color:var(--ink-2)}
+.bar-cell{display:flex;align-items:center;gap:8px;min-width:120px}
+.bar-cell i{display:block;height:8px;border-radius:4px;background:var(--brand);flex:none}
+.seg-dot{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:8px;vertical-align:baseline}
+.chip{display:inline-block;padding:2px 8px;border-radius:999px;font-size:.76rem;font-weight:600;background:var(--surface-2);color:var(--ink-2)}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:9px;overflow:hidden}
+.seg button{background:var(--surface);border:0;padding:6px 12px;font-size:.85rem;font-weight:600;color:var(--ink-2);cursor:pointer}
+.seg button+button{border-left:1px solid var(--line)}
+.seg button[aria-pressed="true"]{background:var(--brand);color:var(--brand-ink)}
+
+table.heat{border-collapse:separate;border-spacing:2px;font-size:.8rem;width:100%;min-width:760px}
+.heat th{font-weight:600;color:var(--ink-2);padding:5px 6px;text-align:center;font-size:.76rem;white-space:nowrap}
+.heat th.rowh{text-align:left;padding-right:12px}
+.heat td{text-align:center;padding:7px 4px;border-radius:5px;font-weight:600;min-width:46px}
+.heat td.na{background:transparent}
+.heat tr.avg td,.heat tr.avg th{border-top:1px solid var(--line)}
+
+.ab-result{display:grid;gap:14px}
+.verdict{border-radius:10px;padding:14px 16px;font-weight:600}
+.verdict.ok{background:var(--good-bg);color:var(--good)}
+.verdict.no{background:var(--warn-bg);color:var(--warn)}
+.verdict small{display:block;font-weight:400;color:var(--ink-2);margin-top:4px;font-size:.88rem}
+.stat-line{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-bottom:1px solid var(--line);font-size:.92rem}
+.stat-line:last-child{border-bottom:0}
+.stat-line span:first-child{color:var(--ink-2)}
+.stat-line b{font-variant-numeric:tabular-nums}
+svg.bell{width:100%;height:auto;display:block}
+
+/* qualidade de dados */
+.dq-grid{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:16px}
+.step{display:grid;grid-template-columns:auto 1fr auto;gap:10px 12px;padding:12px 0;border-bottom:1px solid var(--line);align-items:start}
+.step:last-child{border-bottom:0}
+.step input{width:18px;height:18px;margin-top:3px;accent-color:var(--brand)}
+.step label{cursor:pointer;font-weight:600;font-size:.95rem}
+.step p{grid-column:2/4;font-size:.86rem;color:var(--ink-2);margin-top:-6px}
+.step .ord{font:700 .8rem var(--font-display);color:var(--ink-3)}
+.score{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+.score b{font:800 3rem/1 var(--font-display);letter-spacing:-.04em}
+.dim{display:grid;grid-template-columns:110px 1fr 48px;gap:10px;align-items:center;font-size:.88rem;margin:8px 0}
+.dim .trk{height:8px;background:var(--surface-2);border-radius:4px;overflow:hidden}
+.dim .trk i{display:block;height:100%;background:var(--brand);border-radius:4px;transition:width .4s}
+.dim .pv{text-align:right;font-weight:600}
+.dq-table{max-height:380px;overflow:auto;border:1px solid var(--line);border-radius:10px}
+.dq-table table{border-collapse:collapse;width:100%;font-size:.82rem}
+.dq-table th{position:sticky;top:0;background:var(--surface-2);text-align:left;padding:8px 10px;font-size:.76rem;color:var(--ink-2);z-index:1}
+.dq-table td{padding:6px 10px;border-top:1px solid var(--line);font-family:var(--font-mono);font-size:.78rem;white-space:nowrap}
+td.bad{background:var(--bad-bg);color:var(--bad)}
+td.fixed{background:var(--good-bg)}
+td.flag{background:var(--warn-bg)}
+tr.dupe td{opacity:.55;text-decoration:line-through}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:.8rem;color:var(--ink-2);margin:10px 0}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-2px}
+
+/* código */
+.code{background:var(--code-bg);color:var(--code-ink);border-radius:12px;border:1px solid var(--code-line);overflow:hidden}
+.code-bar{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:8px 8px 8px 16px;border-bottom:1px solid var(--code-line);font:500 .78rem var(--font-mono);color:var(--code-mute)}
+.code-bar .btn{background:transparent;border-color:var(--code-line);color:var(--code-ink)}
+.code pre{margin:0;padding:16px 18px;font:400 .82rem/1.65 var(--font-mono);overflow:auto;max-height:520px;tab-size:2}
+.code-view.sql-out{margin-top:14px}
+.t-k{color:var(--code-kw);font-weight:500}.t-s{color:var(--code-str)}.t-n{color:var(--code-num)}.t-c{color:var(--code-mute);font-style:italic}.t-f{color:var(--code-fn)}
+
+/* experiência */
+.tl{margin:0;padding:0;list-style:none;border-left:2px solid var(--line)}
+.tl li{position:relative;display:grid;grid-template-columns:160px minmax(0,1fr);gap:8px 28px;padding:0 0 38px 28px}
+.tl li:last-child{padding-bottom:0}
+.tl li::before{content:"";position:absolute;left:-7px;top:7px;width:12px;height:12px;border-radius:50%;background:var(--bg);border:2px solid var(--brand)}
+section.alt .tl li::before{background:var(--surface)}
+.tl .when{font:600 .92rem var(--font-display);color:var(--ink-2);padding-top:2px}
+.tl h3{font-size:1.2rem}
+.tl .org{color:var(--ink-2);margin-top:2px;font-size:.95rem}
+.tl ul{margin:12px 0 0;padding-left:18px;color:var(--ink-2)}
+.tl ul li{display:list-item;padding:0 0 6px;border:0;grid-template-columns:none}
+.tl ul li::before{display:none}
+.tl ul strong{color:var(--ink);font-weight:600}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+
+/* cases */
+
+/* competências */
+.skills{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:34px 48px}
+.sk-group h3{font-size:1.05rem;padding-bottom:10px;border-bottom:2px solid var(--ink)}
+.sk-chips{display:flex;flex-wrap:wrap;gap:8px;padding-top:16px}
+.sk-chips .chip{font-size:.9rem;padding:6px 13px;background:var(--surface);border:1px solid var(--line);color:var(--ink);font-weight:500}
+
+/* arquitetura */
+.arch{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:0;position:relative}
+.stage{position:relative;background:var(--surface);border:1px solid var(--line);padding:16px 12px;text-align:left;cursor:pointer;font-weight:600;font-size:.92rem;display:flex;flex-direction:column;gap:8px}
+.stage:first-child{border-radius:12px 0 0 12px}.stage:last-child{border-radius:0 12px 12px 0}
+.stage+.stage{border-left:0}
+.stage .n{font:700 .8rem var(--font-display);color:var(--ink-3)}
+.stage:hover{background:var(--surface-2)}
+.stage[aria-pressed="true"]{background:var(--brand);color:var(--brand-ink);border-color:var(--brand)}
+.stage[aria-pressed="true"] .n{color:inherit;opacity:.8}
+.arch-detail{margin-top:16px;display:grid;grid-template-columns:minmax(0,1.2fr) repeat(2,minmax(0,1fr));gap:16px}
+.arch-detail h3{font-size:1.35rem;margin-bottom:8px}
+.arch-detail h4{font-size:.9rem;margin-bottom:8px}
+.arch-detail ul{margin:0;padding-left:18px;color:var(--ink-2);font-size:.93rem}
+.arch-detail li{margin-bottom:5px}
+
+.creds{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 40px}
+.cred{padding:14px 0;border-bottom:1px solid var(--line)}
+.cred b{display:block;font-weight:600}
+.cred span{color:var(--ink-2);font-size:.9rem}
+.contact{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(24px,5vw,64px);align-items:start}
+.contact-list{display:grid;gap:0;margin:0;padding:0;list-style:none}
+.contact-list li{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:14px 0;border-bottom:1px solid var(--line)}
+.contact-list li:first-child{border-top:1px solid var(--line)}
+.contact-list span{color:var(--ink-2);font-size:.9rem}
+.principles{display:grid;gap:14px;margin:0;padding:0;list-style:none}
+.principles li{padding-left:16px;border-left:3px solid var(--brand);color:var(--ink-2)}
+.principles strong{color:var(--ink);display:block}
+footer{border-top:1px solid var(--line);padding:26px 0 34px;color:var(--ink-3);font-size:.85rem}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translate(-50%,20px);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:10px;font-size:.9rem;font-weight:600;opacity:0;pointer-events:none;transition:.25s;z-index:80}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+.nochart{display:grid;place-items:center;height:100%;color:var(--ink-3);font-size:.9rem;text-align:center;padding:16px}
+
+@media (max-width:980px){
+  .hero-grid,.g-main,.dq-grid,.contact,.arch-detail,.about{grid-template-columns:1fr}
+  .gallery{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .kpis .kpi:last-child{grid-column:1/-1}
+  .kpis.k4{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .kpis.k4 .kpi:last-child{grid-column:auto}
+  .g3{grid-template-columns:1fr}
+  .arch{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+  .stage,.stage:first-child,.stage:last-child{border-radius:10px;border-left:1px solid var(--line)}
+  .stage[aria-pressed="true"]{border-color:var(--brand)}
+}
+@media (max-width:680px){
+  .g2,.creds{grid-template-columns:1fr}
+  .facts-in{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .fact:nth-child(3){border-left:0;padding-left:0}
+  .fact:nth-child(n+3){border-top:1px solid var(--line)}
+  .skills{grid-template-columns:1fr}
+  .gallery{grid-template-columns:1fr}
+  .gcard.wide{grid-column:auto}
+  .tl li{grid-template-columns:1fr;gap:4px}
+  .nav-in{gap:10px}
+  .brand{font-size:.98rem}
+  .dim{grid-template-columns:90px 1fr 42px}
+  .chart-box{height:250px}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *{transition:none !important;animation:none !important}
+}
+
+/* ---------- galeria ---------- */
+section.ruled{border-top:1px solid var(--line)}
+.filter-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
+.fchip{background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:7px 14px;font-weight:600;font-size:.88rem;color:var(--ink-2);cursor:pointer}
+.fchip:hover{background:var(--surface-2)}
+.fchip[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--bg)}
+.gallery{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;grid-auto-flow:dense}
+.gcard{display:flex;flex-direction:column;min-width:0}
+.gcard.wide{grid-column:span 2}
+.gcard[hidden]{display:none}
+.gcard h3{font-size:1.02rem;margin-bottom:4px}
+.gcard .gnote{font-size:.84rem;color:var(--ink-2);margin-bottom:14px;line-height:1.5}
+.gbody{position:relative;height:270px;margin-top:auto}
+.gbody.auto{height:auto}
+.viz{width:100%}
+.gauge-txt{position:absolute;left:0;right:0;bottom:6px;text-align:center;line-height:1.2}
+.gauge-txt b{display:block;font:800 2.3rem var(--font-display);letter-spacing:-.03em}
+.gauge-txt span{font-size:.82rem;color:var(--ink-2)}
+.funnel{display:grid;gap:8px}
+.frow{display:grid;grid-template-columns:132px minmax(0,1fr);gap:12px;align-items:center;font-size:.85rem}
+.frow .fl{color:var(--ink);font-weight:500;line-height:1.3}
+.frow .fl small{display:block;color:var(--ink-3);font-weight:400;font-size:.76rem}
+.frow .fb{height:36px;border-radius:6px;background:var(--brand);margin:0 auto;display:flex;align-items:center;justify-content:center;color:var(--brand-ink);font-weight:600;font-variant-numeric:tabular-nums;min-width:56px}
+.mm{display:flex;gap:3px}
+.mm-col{display:flex;flex-direction:column;min-width:0}
+.mm-stack{display:flex;flex-direction:column;gap:2px;height:250px}
+.mm-seg{display:flex;align-items:center;justify-content:center;font-size:.74rem;font-weight:600;border-radius:3px;min-height:2px;overflow:hidden}
+.mm-lab{margin-top:8px;font-size:.78rem;font-weight:600;text-align:center;line-height:1.3;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mm-lab span{font-weight:400;color:var(--ink-2)}
+.spark-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px 16px}
+.spark{border-top:1px solid var(--line);padding-top:10px;min-width:0}
+.spark .t{font-size:.8rem;color:var(--ink-2)}
+.spark .v{font:700 1.3rem/1.2 var(--font-display);letter-spacing:-.02em;margin:2px 0}
+.spark svg{width:100%;height:44px;display:block;margin-top:6px}
+.legend{margin-top:14px}
+
+/* ---------- sobre ---------- */
+.about{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,.75fr);gap:clamp(24px,5vw,72px);align-items:start}
+.about-p{font-size:1.06rem;color:var(--ink-2);max-width:62ch;margin-bottom:14px}
+.about .creds{grid-template-columns:1fr;gap:0}
+.about .cred{padding:18px 0}
+.about .cred:first-child{border-top:1px solid var(--line)}
+
+/* responsivo das seções adicionadas (precisa vir depois das regras-base) */
+@media (max-width:980px){
+  .gallery{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .about{grid-template-columns:1fr}
+}
+@media (max-width:680px){
+  .gallery{grid-template-columns:1fr}
+  .gcard.wide{grid-column:auto}
+  .frow{grid-template-columns:104px minmax(0,1fr)}
+  .mm-stack{height:220px}
+}
+
+</style>
+</head>
+<body>
+<header class="nav">
+  <div class="wrap nav-in">
+    <a class="brand" href="#topo" id="brandName">João Victor Genuino</a>
+    <nav class="nav-links" aria-label="Seções">
+      <a href="#galeria">Galeria</a>
+      <a href="#projetos">Projetos</a>
+      <a href="#sobre">Sobre</a>
+      <a href="#competencias">Competências</a>
+      <a href="#metodo">Método</a>
+      <a href="#codigo">Código</a>
+      <a href="#contato">Contato</a>
+    </nav>
+    <button class="icon-btn" id="themeBtn" type="button" aria-label="Alternar tema claro e escuro" title="Alternar tema">
+      <svg class="ico-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      <svg class="ico-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+    </button>
+  </div>
+</header>
+
+<main id="topo">
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <h1>Analista de dados pleno que transforma números em respostas claras.</h1>
+        <p class="hero-lead"><strong id="heroName">João Victor Genuino da Silva</strong>, formado em Análise e Desenvolvimento de Sistemas e cursando pós-graduação em Business Intelligence. Este portfólio é a minha forma de mostrar como trabalho: cada gráfico e cada análise abaixo está rodando de verdade, com dados sintéticos.</p>
+        <div class="cta-row">
+          <a class="btn" href="#galeria">Ver galeria de gráficos</a>
+          <a class="btn ghost" href="#contato">Falar comigo</a>
+        </div>
+      </div>
+      <div>
+        <div class="console" aria-label="Consulta SQL executada sobre os dados do laboratório">
+          <div class="console-bar"><span>consulta.sql</span><span class="live" id="conStatus">executando</span></div>
+          <pre id="conSql" aria-live="off"></pre>
+          <div class="console-res"><table><thead><tr><th>categoria</th><th>receita</th><th>margem</th></tr></thead><tbody id="conRes"></tbody></table></div>
+        </div>
+        <p class="hero-note">Este resultado é calculado agora, no seu navegador, sobre os mesmos dados usados nos gráficos e nas análises.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="facts"><div class="wrap facts-in" id="facts"></div></div>
+
+  <!-- ================= GALERIA ================= -->
+  <section class="blk" id="galeria">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Galeria de gráficos</h2>
+        <p><span id="gCount">21</span> tipos de gráfico, cada um com a pergunta que responde melhor. Todos usam o mesmo conjunto de dados sintéticos e são desenhados agora, no seu navegador. Passe o mouse ou toque nos gráficos para ver os valores.</p>
+      </div>
+      <div class="filter-row" id="gFilters" role="group" aria-label="Filtrar gráficos por tipo de análise"></div>
+      <div class="gallery" id="gallery"></div>
+    </div>
+  </section>
+
+  <!-- ================= PROJETOS ================= -->
+  <section class="blk ruled" id="projetos">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Projetos interativos</h2>
+        <p>Sete análises completas, do painel executivo ao controle de qualidade de dados. Mude filtros, ligue etapas de limpeza, escreva consultas: os números recalculam na hora. A base é <span id="labMeta">um conjunto sintético</span>.</p>
+      </div>
+      <div class="tabs" role="tablist" aria-label="Análises do laboratório" id="labTabs">
+        <button class="tab" role="tab" data-tab="dash" id="t-dash" aria-controls="p-dash" aria-selected="true">Painel executivo</button>
+        <button class="tab" role="tab" data-tab="cohort" id="t-cohort" aria-controls="p-cohort" aria-selected="false" tabindex="-1">Retenção por coorte</button>
+        <button class="tab" role="tab" data-tab="rfm" id="t-rfm" aria-controls="p-rfm" aria-selected="false" tabindex="-1">Segmentação RFM</button>
+        <button class="tab" role="tab" data-tab="forecast" id="t-forecast" aria-controls="p-forecast" aria-selected="false" tabindex="-1">Previsão de receita</button>
+        <button class="tab" role="tab" data-tab="ab" id="t-ab" aria-controls="p-ab" aria-selected="false" tabindex="-1">Teste A/B</button>
+        <button class="tab" role="tab" data-tab="dq" id="t-dq" aria-controls="p-dq" aria-selected="false" tabindex="-1">Qualidade de dados</button>
+        <button class="tab" role="tab" data-tab="sql" id="t-sql" aria-controls="p-sql" aria-selected="false" tabindex="-1">Consultas SQL</button>
+      </div>
+
+      <!-- Painel executivo -->
+      <div class="tabpanel" role="tabpanel" id="p-dash" aria-labelledby="t-dash">
+        <div class="filters">
+          <label class="field">Período
+            <select id="f-period">
+              <option value="6">Últimos 6 meses</option>
+              <option value="12" selected>Últimos 12 meses</option>
+              <option value="18">Últimos 18 meses</option>
+              <option value="36">Todo o período (36 meses)</option>
+            </select>
+          </label>
+          <label class="field">Região<select id="f-reg"></select></label>
+          <label class="field">Categoria<select id="f-cat"></select></label>
+        </div>
+        <div class="kpis" id="kpis"></div>
+        <div class="grid g-main">
+          <div class="panel"><div class="panel-h"><h3>Receita mensal</h3><span class="muted small" id="ch-month-note"></span></div><div class="chart-box"><canvas id="ch-month" role="img" aria-label="Gráfico de linha da receita mensal"></canvas></div></div>
+          <div class="panel"><h3>Receita por região</h3><div class="chart-box"><canvas id="ch-reg" role="img" aria-label="Gráfico de rosca da receita por região"></canvas></div></div>
+        </div>
+        <div class="grid g-main mt">
+          <div class="panel"><h3>Desempenho por categoria</h3><div class="tbl-wrap"><table class="tbl" id="tbl-cat"></table></div></div>
+          <div class="panel"><h3>O que os números dizem</h3><ul class="insights" id="dash-insights"></ul></div>
+        </div>
+      </div>
+
+      <!-- Coortes -->
+      <div class="tabpanel" role="tabpanel" id="p-cohort" aria-labelledby="t-cohort" hidden>
+        <div class="panel">
+          <div class="panel-h">
+            <h3>Quem volta a comprar depois da primeira compra</h3>
+            <div class="seg" id="coh-mode" role="group" aria-label="Tipo de valor exibido">
+              <button type="button" data-m="pct" aria-pressed="true">Retenção %</button>
+              <button type="button" data-m="abs" aria-pressed="false">Clientes</button>
+            </div>
+          </div>
+          <p class="muted small" style="margin-bottom:12px">Cada linha é o grupo de clientes que fez a primeira compra naquele mês. As colunas mostram quantos compraram de novo 1, 2, 3… meses depois. Quanto mais escura a célula, maior a retenção.</p>
+          <div class="tbl-wrap"><table class="heat" id="coh-table"></table></div>
+        </div>
+        <div class="panel mt"><h3>Leitura</h3><ul class="insights" id="coh-insight"></ul></div>
+      </div>
+
+      <!-- RFM -->
+      <div class="tabpanel" role="tabpanel" id="p-rfm" aria-labelledby="t-rfm" hidden>
+        <div class="grid g-main">
+          <div class="panel"><h3>Participação de cada segmento: clientes versus receita</h3><div class="chart-box tall"><canvas id="ch-rfm" role="img" aria-label="Gráfico de barras comparando percentual de clientes e de receita por segmento"></canvas></div></div>
+          <div class="panel"><h3>Leitura</h3><ul class="insights" id="rfm-insight"></ul>
+            <p class="muted small" style="margin-top:16px">Regras: recência em dias (até 30, 90, 180 e 365), frequência em pedidos (1, 2, 3, 4 a 5, 6 ou mais). A mesma lógica está em SQL na seção de código.</p></div>
+        </div>
+        <div class="panel mt"><div class="tbl-wrap"><table class="tbl" id="tbl-rfm"></table></div></div>
+      </div>
+
+      <!-- Previsão -->
+      <div class="tabpanel" role="tabpanel" id="p-forecast" aria-labelledby="t-forecast" hidden>
+        <div class="filters">
+          <label class="field">Categoria<select id="fc-cat"></select></label>
+          <label class="field">Meses a prever: <output id="fc-hv">6</output><input type="range" id="fc-h" min="3" max="9" value="6"></label>
+        </div>
+        <div class="kpis k4" id="fc-kpis"></div>
+        <div class="panel"><div class="panel-h"><h3>Receita realizada e prevista</h3><span class="muted small">Faixa: intervalo de cerca de 80%</span></div><div class="chart-box tall"><canvas id="ch-fc" role="img" aria-label="Gráfico de linha com receita realizada, ajuste do modelo e previsão com faixa de incerteza"></canvas></div></div>
+        <div class="grid g2 mt">
+          <div class="panel"><h3>Previsão mês a mês</h3><div class="tbl-wrap"><table class="tbl" id="fc-tbl"></table></div></div>
+          <div class="panel"><h3>Como o modelo funciona</h3><ul class="insights" id="fc-notes"></ul></div>
+        </div>
+      </div>
+
+      <!-- Teste A/B -->
+      <div class="tabpanel" role="tabpanel" id="p-ab" aria-labelledby="t-ab" hidden>
+        <div class="grid g2">
+          <div class="panel">
+            <h3>Dados do experimento</h3>
+            <div class="filters">
+              <label class="field">Visitantes no controle (A)<input type="number" id="ab-na" value="12400" min="1"></label>
+              <label class="field">Conversões no controle (A)<input type="number" id="ab-ca" value="1041" min="0"></label>
+              <label class="field">Visitantes na variante (B)<input type="number" id="ab-nb" value="12310" min="1"></label>
+              <label class="field">Conversões na variante (B)<input type="number" id="ab-cb" value="1163" min="0"></label>
+              <label class="field">Nível de confiança<select id="ab-conf"><option value="0.90">90%</option><option value="0.95" selected>95%</option><option value="0.99">99%</option></select></label>
+            </div>
+            <p class="muted small">Teste z para duas proporções, bicaudal. Altere os números e veja o veredito mudar.</p>
+          </div>
+          <div class="panel ab-result" id="ab-out"></div>
+        </div>
+        <div class="panel mt"><h3>Onde a estatística cai na distribuição</h3><svg id="ab-bell" class="bell" viewBox="0 0 640 170" role="img" aria-label="Curva normal com a estatística z do experimento marcada"></svg></div>
+      </div>
+
+      <!-- Qualidade de dados -->
+      <div class="tabpanel" role="tabpanel" id="p-dq" aria-labelledby="t-dq" hidden>
+        <div class="dq-grid">
+          <div class="panel">
+            <div class="panel-h"><h3>Pipeline de limpeza</h3><span><button class="btn ghost sm" id="dq-none" type="button">Limpar seleção</button> <button class="btn sm" id="dq-all" type="button">Aplicar tudo</button></span></div>
+            <div id="dq-steps"></div>
+          </div>
+          <div class="panel">
+            <h3>Pontuação de qualidade</h3>
+            <div class="score"><b class="num" id="dq-score">0%</b><span class="muted" id="dq-delta"></span></div>
+            <div id="dq-dims"></div>
+          </div>
+        </div>
+        <div class="panel mt">
+          <div class="panel-h"><h3>Tabela de pedidos (bruta versus tratada)</h3><span class="muted small" id="dq-count"></span></div>
+          <div class="legend"><span><i style="background:var(--bad-bg)"></i>problema presente</span><span><i style="background:var(--good-bg)"></i>corrigido</span><span><i style="background:var(--warn-bg)"></i>imputado ou limitado</span></div>
+          <div class="dq-table"><table id="dq-table"></table></div>
+        </div>
+        <div class="code mt"><div class="code-bar"><span>pipeline.py, gerado a partir das etapas ligadas</span></div><pre id="dq-code"></pre></div>
+      </div>
+
+      <!-- Consultas SQL -->
+      <div class="tabpanel" role="tabpanel" id="p-sql" aria-labelledby="t-sql" hidden>
+        <div class="filters">
+          <label class="field">Métrica<select id="q-metric"></select></label>
+          <label class="field">Agrupar por<select id="q-dim"></select></label>
+          <label class="field">Ano<select id="q-year"></select></label>
+          <label class="field">Categoria<select id="q-cat"></select></label>
+          <label class="field">Ordenar<select id="q-order"><option value="desc">Maior para menor</option><option value="asc">Menor para maior</option><option value="key">Pelo rótulo</option></select></label>
+          <label class="field">Limite<select id="q-limit"><option value="5">5 linhas</option><option value="10" selected>10 linhas</option><option value="50">50 linhas</option></select></label>
+        </div>
+        <div class="grid g2">
+          <div class="code"><div class="code-bar"><span>SQL gerado</span></div><pre id="q-sql"></pre></div>
+          <div class="panel"><div class="panel-h"><h3>Resultado</h3><span class="muted small num" id="q-meta"></span></div><div class="tbl-wrap"><table class="tbl" id="q-res"></table></div></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= SOBRE ================= -->
+  <section class="blk alt" id="sobre">
+    <div class="wrap about">
+      <div>
+        <div class="sec-head" style="margin-bottom:22px"><h2>Sobre mim</h2></div>
+        <p class="about-p">Sou o João Victor, analista de dados pleno, tenho <span id="aboutAge">25</span> anos e sou formado em Análise e Desenvolvimento de Sistemas. Agora estou cursando pós-graduação em Business Intelligence.</p>
+        <p class="about-p">A base em desenvolvimento de sistemas me deixa à vontade com lógica, bancos de dados e automação. A pós em BI aprofunda modelagem de dados, indicadores e visualização. O resultado que busco é sempre o mesmo: uma análise que a pessoa de negócio consiga ler sem precisar de tradutor.</p>
+        <ul class="principles" style="margin-top:28px">
+          <li><strong>Toda métrica tem uma definição escrita.</strong>Se duas pessoas calculam receita de formas diferentes, o problema vem antes do dashboard.</li>
+          <li><strong>Dado sem validação é opinião.</strong>Checo qualidade antes de qualquer número chegar a uma reunião.</li>
+          <li><strong>A pergunta vem antes da ferramenta.</strong>Começo pela decisão que será tomada e trabalho de trás para frente.</li>
+          <li><strong>Incerteza faz parte da resposta.</strong>Previsões saem com intervalo e testes com significância declarada.</li>
+        </ul>
+      </div>
+      <div>
+        <div class="creds">
+          <div class="cred"><b>Analista de dados pleno</b><span>Nível de atuação</span></div>
+          <div class="cred"><b>Análise e Desenvolvimento de Sistemas</b><span>Graduação concluída</span></div>
+          <div class="cred"><b>Business Intelligence</b><span>Pós-graduação em andamento</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="wrap" id="expBlock" hidden style="margin-top:56px">
+      <div class="sec-head" style="margin-bottom:24px"><h2 style="font-size:1.6rem">Experiência profissional</h2></div>
+      <ol class="tl" id="expList"></ol>
+    </div>
+  </section>
+
+  <!-- ================= COMPETÊNCIAS ================= -->
+  <section class="blk" id="competencias">
+    <div class="wrap">
+      <div class="sec-head"><h2>Competências</h2><p>Ferramentas e técnicas, agrupadas pelo momento do trabalho em que entram.</p></div>
+      <div class="skills" id="skills"></div>
+    </div>
+  </section>
+
+  <!-- ================= MÉTODO ================= -->
+  <section class="blk alt" id="metodo">
+    <div class="wrap">
+      <div class="sec-head"><h2>Como eu estruturo um projeto de BI</h2><p>As seis etapas que sigo do pedido à entrega. Clique em cada uma para ver o que eu faço e o que entrego.</p></div>
+      <div class="arch" id="arch" role="group" aria-label="Etapas de um projeto de BI"></div>
+      <div class="arch-detail" id="arch-detail"></div>
+    </div>
+  </section>
+
+  <!-- ================= CÓDIGO ================= -->
+  <section class="blk" id="codigo">
+    <div class="wrap">
+      <div class="sec-head"><h2>Código das análises</h2><p>SQL com funções de janela, modelagem dimensional e Python testável. Os comentários explicam a decisão, não o óbvio.</p></div>
+      <div class="tabs" id="code-tabs" role="tablist" aria-label="Exemplos de código"></div>
+      <div class="code"><div class="code-bar"><span id="code-title"></span><button class="btn sm" id="code-copy" type="button">Copiar código</button></div><pre id="code-pre"></pre></div>
+    </div>
+  </section>
+
+  <!-- ================= CONTATO ================= -->
+  <section class="blk alt" id="contato">
+    <div class="wrap contact">
+      <div class="sec-head" style="margin:0"><h2>Vamos conversar?</h2><p>Estou aberto a oportunidades como analista de dados pleno. Se o seu time precisa de alguém que una SQL, BI e comunicação clara, me chame por e-mail ou WhatsApp.</p></div>
+      <ul class="contact-list" id="contactList"></ul>
+    </div>
+  </section>
+</main>
+
+<footer><div class="wrap">&copy; <span id="footYear">2026</span> <span id="footName">João Victor Genuino da Silva</span>. Os dados das análises são sintéticos, gerados no navegador com semente fixa; nenhuma informação de cliente real é usada.</div></footer>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.js"></script>
+<script>
+'use strict';
+/* =====================================================================
+   PERFIL: edite aqui os seus dados reais
+   ===================================================================== */
+const PROFILE = {
+  name: 'João Victor Genuino da Silva',
+  brand: 'João Victor Genuino',
+  role: 'Analista de dados pleno',
+  age: 25,
+  email: 'victorgenuino@gmail.com',
+  phone: '(83) 99913-4468',
+  whatsapp: '5583999134468',
+  linkedin: '',   // preencha com a URL completa quando tiver
+  github: '',     // preencha com a URL completa quando tiver
+  experience: []  // ex.: [{ when: '2023 até hoje', title: 'Analista de dados pleno', org: 'Empresa', bullets: ['...'] }]
+};
+
+/* ---------- utilitários ---------- */
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+const nf0 = new Intl.NumberFormat('pt-BR', { maximumFractionDigits: 0 });
+const fmtInt = n => nf0.format(n);
+const fmtBRL = n => n.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', maximumFractionDigits: 0 });
+const fmtBRL2 = n => n.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+const fmtK = n => {
+  const a = Math.abs(n);
+  if (a >= 1e6) return 'R$ ' + (n / 1e6).toFixed(2).replace('.', ',') + ' mi';
+  if (a >= 1e3) return 'R$ ' + Math.round(n / 1e3) + ' mil';
+  return 'R$ ' + Math.round(n);
+};
+const fmtPct = (x, d = 1) => (x * 100).toFixed(d).replace('.', ',') + '%';
+const fmtSigned = (x, d = 1) => (x >= 0 ? '+' : '\u2212') + (Math.abs(x) * 100).toFixed(d).replace('.', ',') + '%';
+const fmtNum = (x, d = 2) => x.toFixed(d).replace('.', ',');
+const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+const p2 = n => String(n).padStart(2, '0');
+const reduceMotion = () => typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+let toastTimer = null;
+function toast(msg) {
+  const el = $('#toast'); if (!el) return;
+  el.textContent = msg; el.classList.add('on');
+  clearTimeout(toastTimer); toastTimer = setTimeout(() => el.classList.remove('on'), 2200);
+}
+async function copyText(t) {
+  try { await navigator.clipboard.writeText(t); return true; }
+  catch (e) {
+    try {
+      const ta = document.createElement('textarea');
+      ta.value = t; ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.appendChild(ta); ta.select();
+      const ok = document.execCommand('copy'); ta.remove(); return ok;
+    } catch (e2) { return false; }
+  }
+}
+function quantile(arr, q) {
+  if (!arr.length) return 0;
+  const s = arr.slice().sort((a, b) => a - b), pos = (s.length - 1) * q, lo = Math.floor(pos), hi = Math.ceil(pos);
+  return s[lo] + (s[hi] - s[lo]) * (pos - lo);
+}
+function fillSelect(sel, items, allLabel) {
+  sel.innerHTML = (allLabel ? `<option value="-1">${esc(allLabel)}</option>` : '') +
+    items.map((t, i) => `<option value="${i}">${esc(t)}</option>`).join('');
+}
+function groupBy(list, keyFn) {
+  const m = new Map();
+  for (const o of list) { const k = keyFn(o); let a = m.get(k); if (!a) { a = []; m.set(k, a); } a.push(o); }
+  return m;
+}
+
+/* ---------- tema e gráficos ---------- */
+const cssVar = (name, fb = '#888888') => {
+  try { return getComputedStyle(document.documentElement).getPropertyValue(name).trim() || fb; } catch (e) { return fb; }
+};
+function withAlpha(hex, a) {
+  hex = (hex || '').trim();
+  if (hex[0] !== '#') return hex;
+  let h = hex.slice(1); if (h.length === 3) h = h.split('').map(x => x + x).join('');
+  const n = parseInt(h, 16);
+  return `rgba(${(n >> 16) & 255},${(n >> 8) & 255},${n & 255},${a})`;
+}
+const palette = () => ['--c1', '--c2', '--c3', '--c4', '--c5', '--c6'].map(v => cssVar(v));
+
+const CHARTS = {};
+function chartTheme() {
+  if (typeof Chart === 'undefined') return;
+  Chart.defaults.font.family = "'Instrument Sans', system-ui, sans-serif";
+  Chart.defaults.font.size = 12;
+  Chart.defaults.color = cssVar('--ink-2', '#4B5B72');
+  Chart.defaults.borderColor = cssVar('--line', '#D3DBE6');
+}
+function mkChart(id, cfg) {
+  const cv = document.getElementById(id); if (!cv) return null;
+  if (typeof Chart === 'undefined') {
+    cv.parentElement.innerHTML = '<div class="nochart">Não foi possível carregar a biblioteca de gráficos. Verifique a conexão e recarregue a página.</div>';
+    return null;
+  }
+  chartTheme();
+  if (CHARTS[id]) CHARTS[id].destroy();
+  cfg.options = Object.assign({ responsive: true, maintainAspectRatio: false, animation: { duration: reduceMotion() ? 0 : 450 } }, cfg.options || {});
+  CHARTS[id] = new Chart(cv, cfg);
+  return CHARTS[id];
+}
+
+/* ---------- realce de sintaxe ---------- */
+const SQL_KW = new Set('SELECT FROM WHERE GROUP BY ORDER LIMIT JOIN ON USING AS WITH CASE WHEN THEN ELSE END AND OR NOT IN BETWEEN DISTINCT OVER PARTITION DESC ASC INNER LEFT RIGHT DATE IS NULL HAVING UNION ALL IF ENDIF ROWS UNBOUNDED PRECEDING CURRENT ROW CREATE TABLE VIEW PRIMARY KEY REFERENCES CHECK INTEGER TEXT NUMERIC BIGINT SMALLINT'.split(' '));
+const PY_KW = new Set('import from def return if else elif for in not and or None True False lambda with as class try except raise while assert'.split(' '));
+function hl(code, lang) {
+  const py = lang === 'py', kw = py ? PY_KW : SQL_KW;
+  const re = py
+    ? /(#.*$)|("""[\s\S]*?"""|"[^"\n]*"|'[^'\n]*')|\b(\d+(?:\.\d+)?)\b|\b([A-Za-z_][A-Za-z0-9_]*)\b/gm
+    : /(--.*$)|('[^'\n]*')|\b(\d+(?:\.\d+)?)\b|\b([A-Za-z_][A-Za-z0-9_]*)\b/gm;
+  let out = '', last = 0, m;
+  while ((m = re.exec(code))) {
+    out += esc(code.slice(last, m.index));
+    const [tok, c, s, n, w] = m;
+    if (c) out += `<span class="t-c">${esc(tok)}</span>`;
+    else if (s) out += `<span class="t-s">${esc(tok)}</span>`;
+    else if (n) out += `<span class="t-n">${esc(tok)}</span>`;
+    else if (w && kw.has(py ? w : w.toUpperCase())) out += `<span class="t-k">${esc(tok)}</span>`;
+    else if (w && code[re.lastIndex] === '(') out += `<span class="t-f">${esc(tok)}</span>`;
+    else out += esc(tok);
+    last = re.lastIndex;
+  }
+  return out + esc(code.slice(last));
+}
+
+/* =====================================================================
+   DADOS SINTÉTICOS (determinísticos: mesma semente, mesmo resultado)
+   ===================================================================== */
+function mulberry32(a) {
+  return function () {
+    a |= 0; a = (a + 0x6D2B79F5) | 0;
+    let t = Math.imul(a ^ (a >>> 15), 1 | a);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+function pick(rng, w) {
+  let r = rng() * w.reduce((a, b) => a + b, 0);
+  for (let i = 0; i < w.length; i++) { r -= w[i]; if (r <= 0) return i; }
+  return w.length - 1;
+}
+const NM = 36;                       // meses de histórico: set/2023 a ago/2026
+const START = { y: 2023, m: 8 };
+const MES = ['jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez'];
+function monthInfo(i) { const t = START.m + i; return { y: START.y + Math.floor(t / 12), m: ((t % 12) + 12) % 12 }; }
+function monthLabel(i) { const { y, m } = monthInfo(i); return MES[m] + '/' + String(y).slice(2); }
+
+const CATS = [
+  { n: 'Eletrônicos', tk: 640, mg: 0.17 }, { n: 'Casa e cozinha', tk: 230, mg: 0.31 }, { n: 'Moda', tk: 170, mg: 0.36 },
+  { n: 'Beleza', tk: 105, mg: 0.46 }, { n: 'Esportes', tk: 260, mg: 0.29 }, { n: 'Livros', tk: 78, mg: 0.41 }
+];
+const CAT_NAMES = CATS.map(c => c.n);
+const CAT_W = [0.14, 0.22, 0.26, 0.16, 0.12, 0.10];
+const REGS = ['Sudeste', 'Nordeste', 'Sul', 'Centro-Oeste', 'Norte'];
+const REG_W = [0.44, 0.24, 0.16, 0.09, 0.07];
+const CHS = ['Orgânico', 'Mídia paga', 'Indicação', 'E-mail'];
+const CH_W = [0.34, 0.31, 0.14, 0.21];
+const SEAS = [0.86, 0.84, 0.98, 1.0, 1.12, 1.0, 0.95, 1.02, 0.96, 1.02, 1.55, 1.32]; // sazonalidade por mês do calendário
+
+function buildData(seed) {
+  const rng = mulberry32(seed);
+  const gauss = () => { let u = 0, v = 0; while (!u) u = rng(); while (!v) v = rng(); return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v); };
+  const NEW = 8000, LEG = 4000;
+  const acqW = Array.from({ length: NM }, (_, i) => (0.85 + 0.02 * i) * SEAS[monthInfo(i).m]);
+  const chBoost = [1, 0.85, 1.28, 1.12], regTk = [1.06, 0.92, 1.04, 1.0, 0.9];
+  const customers = [], orders = [];
+  for (let c = 0; c < NEW + LEG; c++) {
+    const legacy = c >= NEW;
+    const acq = legacy ? -1 : pick(rng, acqW);
+    const reg = pick(rng, REG_W), ch = pick(rng, CH_W);
+    let prop = (0.05 + 0.35 * Math.pow(rng(), 1.6)) * chBoost[ch];
+    if (!legacy && SEAS[monthInfo(acq).m] > 1.3) prop *= 0.78;   // coortes de Black Friday e Natal retêm menos
+    const tm = Math.exp(gauss() * 0.25), fav = pick(rng, CAT_W);
+    customers.push({ reg, ch, acq });
+    for (let t = Math.max(acq, 0); t < NM; t++) {
+      const mi = monthInfo(t);
+      let n = 0;
+      if (!legacy && t === acq) n = 1;
+      else {
+        const ten = legacy ? t + 8 : t - acq;
+        const pr = Math.min(0.85, prop * SEAS[mi.m] * (0.35 + 0.65 * Math.exp(-ten / 5)));
+        if (rng() < pr) n = rng() < 0.18 ? 2 : 1;
+      }
+      for (let k = 0; k < n; k++) {
+        const cat = rng() < 0.45 ? fav : pick(rng, CAT_W);
+        const price = CATS[cat].tk * tm * regTk[reg] * (1 + 0.004 * t) * Math.exp(gauss() * 0.35);
+        const disc = SEAS[mi.m] > 1.3 ? 0.10 + rng() * 0.06 : (rng() < 0.25 ? 0.05 : 0);
+        orders.push({ c, m: t, d: 1 + Math.floor(rng() * 28), cat, reg, ch, rev: price * (1 - disc), cost: price * (1 - CATS[cat].mg) });
+      }
+    }
+  }
+  return { customers, orders };
+}
+const DATA = buildData(20260919);
+const ORD = DATA.orders, CUS = DATA.customers;
+
+function agg(list) {
+  let rev = 0, cost = 0; const cs = new Set();
+  for (const o of list) { rev += o.rev; cost += o.cost; cs.add(o.c); }
+  return { rev, cost, n: list.length, cust: cs.size, tk: list.length ? rev / list.length : 0, mg: rev ? (rev - cost) / rev : 0 };
+}
+function sel(f) {
+  return ORD.filter(o => o.m >= f.from && o.m < f.to && (f.reg < 0 || o.reg === f.reg) && (f.cat < 0 || o.cat === f.cat));
+}
+function monthlyRev(list) { const a = new Array(NM).fill(0); for (const o of list) a[o.m] += o.rev; return a; }
+
+/* =====================================================================
+   PAINEL EXECUTIVO
+   ===================================================================== */
+const DS = { len: 12, reg: -1, cat: -1 };
+const rel = (a, b) => (b ? (a - b) / b : 0);
+
+function deltaHtml(a, b, hasPrev, pp) {
+  if (!hasPrev) return '<div class="d neu">sem período anterior</div>';
+  const v = pp ? (a - b) * 100 : rel(a, b);
+  const txt = pp ? (v >= 0 ? '+' : '\u2212') + Math.abs(v).toFixed(1).replace('.', ',') + ' pp' : fmtSigned(v);
+  return `<div class="d ${v >= 0 ? 'pos' : 'neg'}">${txt} <span class="neu" style="font-weight:400">vs. período anterior</span></div>`;
+}
+
+function renderDash() {
+  const from = NM - DS.len, pfrom = from - DS.len, hasPrev = pfrom >= 0;
+  const cur = sel({ from, to: NM, reg: DS.reg, cat: DS.cat });
+  const prev = hasPrev ? sel({ from: pfrom, to: from, reg: DS.reg, cat: DS.cat }) : [];
+  const A = agg(cur), B = agg(prev);
+
+  $('#kpis').innerHTML = [
+    ['Receita', fmtK(A.rev), deltaHtml(A.rev, B.rev, hasPrev)],
+    ['Pedidos', fmtInt(A.n), deltaHtml(A.n, B.n, hasPrev)],
+    ['Ticket médio', fmtBRL(A.tk), deltaHtml(A.tk, B.tk, hasPrev)],
+    ['Margem bruta', fmtPct(A.mg), deltaHtml(A.mg, B.mg, hasPrev, true)],
+    ['Clientes ativos', fmtInt(A.cust), deltaHtml(A.cust, B.cust, hasPrev)]
+  ].map(k => `<div class="kpi"><div class="l">${k[0]}</div><div class="v num">${k[1]}</div>${k[2]}</div>`).join('');
+
+  const col = palette();
+  // série mensal
+  const mr = monthlyRev(cur), pr = monthlyRev(prev), labels = [], curS = [], prevS = [];
+  for (let i = from; i < NM; i++) { labels.push(monthLabel(i)); curS.push(mr[i]); prevS.push(hasPrev ? pr[i - DS.len] : null); }
+  $('#ch-month-note').textContent = hasPrev ? 'linha tracejada: período anterior' : '';
+  mkChart('ch-month', {
+    type: 'line',
+    data: {
+      labels, datasets: [
+        { label: 'Receita', data: curS, borderColor: col[0], backgroundColor: withAlpha(col[0], 0.12), fill: true, tension: 0.3, pointRadius: 2.5, borderWidth: 2.5 },
+        ...(hasPrev ? [{ label: 'Período anterior', data: prevS, borderColor: col[5], borderDash: [5, 4], pointRadius: 0, fill: false, tension: 0.3, borderWidth: 1.8 }] : [])
+      ]
+    },
+    options: {
+      interaction: { mode: 'index', intersect: false },
+      plugins: { legend: { display: hasPrev, position: 'bottom' }, tooltip: { callbacks: { label: c => ` ${c.dataset.label}: ${fmtBRL(c.parsed.y)}` } } },
+      scales: { y: { ticks: { callback: v => fmtK(v) }, beginAtZero: true }, x: { grid: { display: false }, ticks: { maxRotation: 0, autoSkip: true, maxTicksLimit: 12 } } }
+    }
+  });
+
+  // região (ignora o filtro de região; destaca a escolhida)
+  const noReg = sel({ from, to: NM, reg: -1, cat: DS.cat });
+  const regRev = REGS.map((_, i) => noReg.reduce((s, o) => s + (o.reg === i ? o.rev : 0), 0));
+  mkChart('ch-reg', {
+    type: 'doughnut',
+    data: { labels: REGS, datasets: [{ data: regRev, backgroundColor: REGS.map((_, i) => withAlpha(col[i], DS.reg < 0 || DS.reg === i ? 1 : 0.25)), borderColor: cssVar('--surface', '#fff'), borderWidth: 2 }] },
+    options: { cutout: '62%', plugins: { legend: { position: 'bottom' }, tooltip: { callbacks: { label: c => ` ${c.label}: ${fmtBRL(c.parsed)} (${fmtPct(c.parsed / (regRev.reduce((a, b) => a + b, 0) || 1))})` } } } }
+  });
+
+  // categorias (ignora o filtro de categoria)
+  const noCat = sel({ from, to: NM, reg: DS.reg, cat: -1 });
+  const g = groupBy(noCat, o => o.cat);
+  const byCat = CATS.map((c, i) => ({ i, name: c.n, ...agg(g.get(i) || []) })).sort((a, b) => b.rev - a.rev);
+  const totCat = byCat.reduce((s, r) => s + r.rev, 0) || 1, maxRev = byCat[0].rev || 1;
+  $('#tbl-cat').innerHTML = `<thead><tr><th>Categoria</th><th class="r">Receita</th><th>Participação</th><th class="r">Pedidos</th><th class="r">Ticket</th><th class="r">Margem</th></tr></thead><tbody>` +
+    byCat.map(r => `<tr${DS.cat === r.i ? ' style="background:var(--brand-soft)"' : ''}><td><strong>${esc(r.name)}</strong></td><td class="r num">${fmtBRL(r.rev)}</td><td><div class="bar-cell"><i style="width:${Math.max(3, Math.round(r.rev / maxRev * 90))}px"></i><span class="num small">${fmtPct(r.rev / totCat)}</span></div></td><td class="r num">${fmtInt(r.n)}</td><td class="r num">${fmtBRL(r.tk)}</td><td class="r num">${fmtPct(r.mg)}</td></tr>`).join('') + '</tbody>';
+
+  // insights
+  const ins = [];
+  ins.push(`Receita de <strong>${fmtK(A.rev)}</strong> em ${DS.len} meses${hasPrev ? `, <strong>${fmtSigned(rel(A.rev, B.rev))}</strong> sobre o período anterior` : ''}. O ticket médio ficou em <strong>${fmtBRL(A.tk)}</strong> e a margem bruta em <strong>${fmtPct(A.mg)}</strong>.`);
+  const top = byCat[0];
+  if (DS.cat < 0) ins.push(`<strong>${esc(top.name)}</strong> lidera com ${fmtPct(top.rev / totCat)} da receita, mas com margem de ${fmtPct(top.mg)}, ${top.mg < A.mg ? 'abaixo' : 'acima'} da média de ${fmtPct(A.mg)}. Volume alto nem sempre é lucro alto.`);
+  else { const me = byCat.find(r => r.i === DS.cat); ins.push(`<strong>${esc(me.name)}</strong> responde por ${fmtPct(me.rev / totCat)} da receita${DS.reg >= 0 ? ' na região selecionada' : ''}, com margem de ${fmtPct(me.mg)}.`); }
+  let pk = from; for (let i = from; i < NM; i++) if (mr[i] > mr[pk]) pk = i;
+  const avgM = A.rev / DS.len;
+  ins.push(`O pico foi em <strong>${monthLabel(pk)}</strong>, com ${fmtNum(mr[pk] / (avgM || 1), 1)}× a média mensal${monthInfo(pk).m === 10 ? ', efeito da Black Friday, que também comprime a margem por causa dos descontos' : ''}.`);
+  const rs = REGS.map((n, i) => ({ n, v: regRev[i] })).sort((a, b) => b.v - a.v), rt = regRev.reduce((a, b) => a + b, 0) || 1;
+  ins.push(`<strong>${rs[0].n}</strong> concentra ${fmtPct(rs[0].v / rt)} da receita; <strong>${rs[4].n}</strong> responde por ${fmtPct(rs[4].v / rt)}, o maior espaço de crescimento em cobertura.`);
+  $('#dash-insights').innerHTML = ins.map(t => `<li>${t}</li>`).join('');
+}
+
+/* =====================================================================
+   COORTES DE RETENÇÃO
+   ===================================================================== */
+let COH = null, cohMode = 'pct';
+function cohortData() {
+  if (COH) return COH;
+  const A0 = 12, NCOH = 12, K = 13;
+  const size = Array(NCOH).fill(0), act = Array.from({ length: NCOH }, () => Array(K).fill(0));
+  CUS.forEach(c => { if (c.acq >= A0 && c.acq < A0 + NCOH) size[c.acq - A0]++; });
+  const seen = new Set();
+  for (const o of ORD) {
+    const a = CUS[o.c].acq; if (a < A0 || a >= A0 + NCOH) continue;
+    const k = o.m - a; if (k >= K) continue;
+    const key = o.c * 16 + k; if (seen.has(key)) continue;
+    seen.add(key); act[a - A0][k]++;
+  }
+  COH = { size, act, A0, NCOH, K };
+  return COH;
+}
+function renderCohort() {
+  const { size, act, A0, NCOH, K } = cohortData();
+  let h = '<thead><tr><th class="rowh">Coorte</th>' + Array.from({ length: K }, (_, k) => `<th>M${k}</th>`).join('') + '</tr></thead><tbody>';
+  for (let r = 0; r < NCOH; r++) {
+    h += `<tr><th class="rowh">${monthLabel(A0 + r)} <span class="muted" style="font-weight:400">(${fmtInt(size[r])})</span></th>`;
+    for (let k = 0; k < K; k++) {
+      const p = act[r][k] / size[r];
+      if (k === 0) { h += `<td style="background:var(--surface-2)">${cohMode === 'pct' ? '100%' : fmtInt(act[r][k])}</td>`; continue; }
+      const a = Math.max(0.05, Math.min(1, p / 0.28) * 0.92);
+      h += `<td style="background:rgba(var(--heat),${a.toFixed(2)});color:${a > 0.68 ? 'var(--heat-ink)' : 'inherit'}">${cohMode === 'pct' ? fmtPct(p, 0) : fmtInt(act[r][k])}</td>`;
+    }
+    h += '</tr>';
+  }
+  const tot = size.reduce((a, b) => a + b, 0), avg = [];
+  h += '<tr class="avg"><th class="rowh">Média ponderada</th>';
+  for (let k = 0; k < K; k++) {
+    const s = act.reduce((a, row) => a + row[k], 0); avg.push(s / tot);
+    h += `<td style="background:transparent">${cohMode === 'pct' ? fmtPct(s / tot, k ? 1 : 0) : fmtInt(s)}</td>`;
+  }
+  $('#coh-table').innerHTML = h + '</tr></tbody>';
+
+  const hunt = [], norm = [];
+  for (let r = 0; r < NCOH; r++) (SEAS[monthInfo(A0 + r).m] > 1.3 ? hunt : norm).push(r);
+  const m3 = rows => rows.reduce((a, r) => a + act[r][3], 0) / rows.reduce((a, r) => a + size[r], 0);
+  const gap = 1 - m3(hunt) / m3(norm);
+  $('#coh-insight').innerHTML = [
+    `Em média, <strong>${fmtPct(avg[1])}</strong> dos clientes compram de novo no mês seguinte, <strong>${fmtPct(avg[3])}</strong> no terceiro mês e <strong>${fmtPct(avg[12])}</strong> após um ano. A maior queda acontece entre M0 e M1: é ali que o pós-venda mais rende.`,
+    `As coortes de <strong>${hunt.map(r => monthLabel(A0 + r)).join(' e ')}</strong> (Black Friday e Natal) retêm <strong>${fmtPct(gap, 0)} menos</strong> no terceiro mês do que as demais. Quem chega por desconto tende a sair junto com ele.`,
+    `Implicação prática: medir o custo de aquisição por canal <em>e</em> por época. Um cliente de novembro custa o mesmo para captar, mas devolve menos nos meses seguintes.`
+  ].map(t => `<li>${t}</li>`).join('');
+}
+
+/* =====================================================================
+   SEGMENTAÇÃO RFM
+   ===================================================================== */
+const SEGS = [
+  { n: 'Campeões', c: 0, act: 'Programa VIP e acesso antecipado a lançamentos' },
+  { n: 'Leais', c: 1, act: 'Cross-sell por categoria e incentivo a indicação' },
+  { n: 'Novos', c: 4, act: 'Onboarding de 30 dias e incentivo leve à segunda compra' },
+  { n: 'Precisam de atenção', c: 2, act: 'Lembretes de reposição e ofertas personalizadas' },
+  { n: 'Em risco', c: 3, act: 'Reativação prioritária com contato humano e cupom' },
+  { n: 'Hibernando', c: 5, act: 'Win-back de baixo custo; limpar a base após 3 tentativas' }
+];
+function segOf(R, F) {
+  if (R >= 4) return F >= 4 ? 0 : F === 3 ? 1 : 2;
+  if (R === 3) return F >= 3 ? 1 : 3;
+  return F >= 3 ? 4 : 5;
+}
+let RFM = null;
+function rfmCompute() {
+  if (RFM) return RFM;
+  const last = new Int32Array(CUS.length).fill(-1), freq = new Int32Array(CUS.length), mon = new Float64Array(CUS.length);
+  for (const o of ORD) { const ad = o.m * 30 + o.d; if (ad > last[o.c]) last[o.c] = ad; freq[o.c]++; mon[o.c] += o.rev; }
+  const asOf = (NM - 1) * 30 + 30;
+  const segs = SEGS.map(() => ({ n: 0, rev: 0, ord: 0, rec: 0 }));
+  let buyers = 0, totRev = 0;
+  for (let i = 0; i < CUS.length; i++) {
+    if (!freq[i]) continue;
+    const rec = asOf - last[i], f = freq[i];
+    const R = rec <= 30 ? 5 : rec <= 90 ? 4 : rec <= 180 ? 3 : rec <= 365 ? 2 : 1;
+    const F = f >= 6 ? 5 : f >= 4 ? 4 : f;
+    const s = segs[segOf(R, F)];
+    s.n++; s.rev += mon[i]; s.ord += f; s.rec += rec; buyers++; totRev += mon[i];
+  }
+  RFM = { segs, buyers, totRev };
+  return RFM;
+}
+function renderRFM() {
+  const { segs, buyers, totRev } = rfmCompute();
+  const col = palette();
+  mkChart('ch-rfm', {
+    type: 'bar',
+    data: {
+      labels: SEGS.map(s => s.n), datasets: [
+        { label: '% dos clientes', data: segs.map(s => s.n / buyers * 100), backgroundColor: col[5], borderRadius: 4 },
+        { label: '% da receita', data: segs.map(s => s.rev / totRev * 100), backgroundColor: col[0], borderRadius: 4 }
+      ]
+    },
+    options: {
+      indexAxis: 'y',
+      plugins: { legend: { position: 'bottom' }, tooltip: { callbacks: { label: c => ` ${c.dataset.label}: ${fmtNum(c.parsed.x, 1)}%` } } },
+      scales: { x: { ticks: { callback: v => v + '%' }, beginAtZero: true }, y: { grid: { display: false } } }
+    }
+  });
+  $('#tbl-rfm').innerHTML = `<thead><tr><th>Segmento</th><th class="r">Clientes</th><th class="r">% clientes</th><th class="r">Receita</th><th class="r">% receita</th><th class="r">Pedidos por cliente</th><th class="r">Recência média</th><th>Ação recomendada</th></tr></thead><tbody>` +
+    segs.map((s, i) => `<tr><td><span class="seg-dot" style="background:${col[SEGS[i].c]}"></span><strong>${SEGS[i].n}</strong></td><td class="r num">${fmtInt(s.n)}</td><td class="r num">${fmtPct(s.n / buyers)}</td><td class="r num">${fmtBRL(s.rev)}</td><td class="r num">${fmtPct(s.rev / totRev)}</td><td class="r num">${fmtNum(s.ord / (s.n || 1), 1)}</td><td class="r num">${fmtInt(s.rec / (s.n || 1))} dias</td><td class="wrapc">${SEGS[i].act}</td></tr>`).join('') + '</tbody>';
+  const ch = segs[0], lo = segs[5], rk = segs[4];
+  $('#rfm-insight').innerHTML = [
+    `Os <strong>Campeões</strong> são ${fmtPct(ch.n / buyers)} dos clientes e geram <strong>${fmtPct(ch.rev / totRev)}</strong> da receita. Proteger esse grupo vale mais do que qualquer campanha de aquisição.`,
+    `<strong>Em risco</strong> soma ${fmtBRL(rk.rev)} de receita histórica e ${fmtInt(rk.n)} clientes que já compraram várias vezes. É o melhor alvo de reativação por retorno esperado.`,
+    `<strong>Hibernando</strong> é ${fmtPct(lo.n / buyers)} da base e só ${fmtPct(lo.rev / totRev)} da receita: contato barato e automatizado, sem desconto agressivo.`
+  ].map(t => `<li>${t}</li>`).join('');
+}
+
+/* =====================================================================
+   PREVISÃO DE RECEITA (tendência log-linear + sazonalidade multiplicativa)
+   ===================================================================== */
+function linReg(xs, ys) {
+  const N = xs.length, mx = xs.reduce((a, b) => a + b, 0) / N, my = ys.reduce((a, b) => a + b, 0) / N;
+  let sxy = 0, sxx = 0;
+  for (let i = 0; i < N; i++) { sxy += (xs[i] - mx) * (ys[i] - my); sxx += (xs[i] - mx) ** 2; }
+  const b = sxy / sxx; return { a: my - b * mx, b };
+}
+function fitModel(y, n) {
+  const ly = y.slice(0, n).map(v => Math.log(Math.max(v, 1))), t = ly.map((_, i) => i);
+  let { a, b } = linReg(t, ly), s = new Array(12).fill(0);
+  for (let it = 0; it < 4; it++) {
+    const cnt = new Array(12).fill(0), sum = new Array(12).fill(0);
+    for (let i = 0; i < n; i++) { const m = monthInfo(i).m; sum[m] += ly[i] - (a + b * i); cnt[m]++; }
+    s = sum.map((v, m) => (cnt[m] ? v / cnt[m] : 0));
+    const mean = s.reduce((x, z) => x + z, 0) / 12; s = s.map(v => v - mean);
+    ({ a, b } = linReg(t, ly.map((v, i) => v - s[monthInfo(i).m])));
+  }
+  const res = ly.map((v, i) => v - (a + b * i + s[monthInfo(i).m]));
+  const sigma = Math.sqrt(res.reduce((x, r) => x + r * r, 0) / Math.max(1, n - 14));
+  return { a, b, s, sigma };
+}
+const predict = (M, i) => Math.exp(M.a + M.b * i + M.s[monthInfo(i).m]);
+const FC = { cat: -1, h: 6 };
+function renderForecast() {
+  const y = monthlyRev(sel({ from: 0, to: NM, reg: -1, cat: FC.cat })), H = FC.h;
+  // backtest: treina até o mês 29 e prevê os 6 últimos
+  const MB = fitModel(y, 30); let eM = 0, eN = 0, bias = 0;
+  for (let i = 30; i < NM; i++) { eM += Math.abs(predict(MB, i) - y[i]) / y[i]; eN += Math.abs(y[i - 12] - y[i]) / y[i]; bias += (predict(MB, i) - y[i]) / y[i]; }
+  eM /= 6; eN /= 6; bias /= 6;
+  const M = fitModel(y, NM), z = 1.2816;
+  const labels = [], real = [], fit = [], fc = [], lo = [], up = [], rows = [];
+  let fSum = 0, pSum = 0;
+  for (let i = 0; i < NM + H; i++) {
+    labels.push(monthLabel(i));
+    if (i < NM) { real.push(y[i]); fit.push(predict(M, i)); fc.push(i === NM - 1 ? y[i] : null); lo.push(i === NM - 1 ? y[i] : null); up.push(i === NM - 1 ? y[i] : null); }
+    else {
+      const h = i - NM + 1, p = predict(M, i), w = z * M.sigma * Math.sqrt(1 + h / 12);
+      real.push(null); fit.push(null); fc.push(p); lo.push(p * Math.exp(-w)); up.push(p * Math.exp(w));
+      rows.push({ i, p, lo: p * Math.exp(-w), up: p * Math.exp(w) }); fSum += p; pSum += y[i - 12];
+    }
+  }
+  $('#fc-kpis').innerHTML = [
+    ['Erro do modelo (MAPE)', fmtPct(eM), `<div class="d neu">backtest nos últimos 6 meses</div>`],
+    ['Erro do baseline ingênuo', fmtPct(eN), `<div class="d ${eN > eM ? 'pos' : 'neg'}">${eN > eM ? 'modelo ' + fmtNum(eN / eM, 1) + '× mais preciso' : 'baseline foi melhor'}</div>`],
+    [`Receita prevista, ${H} meses`, fmtK(fSum), `<div class="d neu">soma dos meses previstos</div>`],
+    ['Variação sobre o ano anterior', fmtSigned(fSum / pSum - 1), `<div class="d neu">mesmos ${H} meses do ano passado</div>`]
+  ].map(k => `<div class="kpi"><div class="l">${k[0]}</div><div class="v num">${k[1]}</div>${k[2]}</div>`).join('');
+  const col = palette();
+  mkChart('ch-fc', {
+    type: 'line',
+    data: {
+      labels, datasets: [
+        { label: 'Limite inferior', data: lo, borderWidth: 0, pointRadius: 0, fill: false },
+        { label: 'Limite superior', data: up, borderWidth: 0, pointRadius: 0, fill: '-1', backgroundColor: withAlpha(col[2], 0.22) },
+        { label: 'Realizado', data: real, borderColor: col[0], borderWidth: 2.5, pointRadius: 0, tension: 0.25 },
+        { label: 'Ajuste do modelo', data: fit, borderColor: col[5], borderWidth: 1.4, borderDash: [3, 3], pointRadius: 0, tension: 0.25 },
+        { label: 'Previsão', data: fc, borderColor: col[2], borderWidth: 2.5, borderDash: [6, 4], pointRadius: 0, tension: 0.25 }
+      ]
+    },
+    options: {
+      interaction: { mode: 'index', intersect: false },
+      plugins: { legend: { position: 'bottom', labels: { filter: it => it.datasetIndex > 1 } }, tooltip: { filter: it => it.datasetIndex > 1, callbacks: { label: c => ` ${c.dataset.label}: ${fmtBRL(c.parsed.y)}` } } },
+      scales: { y: { beginAtZero: true, ticks: { callback: v => fmtK(v) } }, x: { grid: { display: false }, ticks: { maxRotation: 0, maxTicksLimit: 14 } } }
+    }
+  });
+  $('#fc-tbl').innerHTML = '<thead><tr><th>Mês</th><th class="r">Previsão</th><th class="r">Intervalo de 80%</th></tr></thead><tbody>' +
+    rows.map(r => `<tr><td>${monthLabel(r.i)}</td><td class="r num"><strong>${fmtBRL(r.p)}</strong></td><td class="r num muted">${fmtBRL(r.lo)} a ${fmtBRL(r.up)}</td></tr>`).join('') + '</tbody>';
+  $('#fc-notes').innerHTML = [
+    `Modelo: <strong>tendência log-linear</strong> mais <strong>índices sazonais multiplicativos</strong>. Simples de explicar e difícil de superar sem dados adicionais.`,
+    `A validação é feita <strong>fora da amostra</strong>: o modelo treina até ${monthLabel(29)} e prevê os 6 meses seguintes, comparado a um baseline que repete o mesmo mês do ano anterior. Viés observado: ${fmtSigned(bias)}.`,
+    `O intervalo se abre com o horizonte, porque a incerteza cresce. Um número sem faixa de erro esconde o risco de quem vai decidir com ele.`
+  ].map(t => `<li>${t}</li>`).join('');
+}
+
+/* =====================================================================
+   TESTE A/B (teste z para duas proporções)
+   ===================================================================== */
+function erf(x) {
+  const s = Math.sign(x); x = Math.abs(x);
+  const t = 1 / (1 + 0.3275911 * x);
+  const y = 1 - (((((1.061405429 * t - 1.453152027) * t) + 1.421413741) * t - 0.284496736) * t + 0.254829592) * t * Math.exp(-x * x);
+  return s * y;
+}
+const normCdf = z => 0.5 * (1 + erf(z / Math.SQRT2));
+const Z_CRIT = { '0.90': 1.6449, '0.95': 1.96, '0.99': 2.5758 };
+function renderAB() {
+  const nA = Math.max(1, +$('#ab-na').value || 0), cA = Math.min(nA, Math.max(0, +$('#ab-ca').value || 0));
+  const nB = Math.max(1, +$('#ab-nb').value || 0), cB = Math.min(nB, Math.max(0, +$('#ab-cb').value || 0));
+  const conf = $('#ab-conf').value, zc = Z_CRIT[conf];
+  const pA = cA / nA, pB = cB / nB, pp = (cA + cB) / (nA + nB);
+  const se0 = Math.sqrt(pp * (1 - pp) * (1 / nA + 1 / nB)) || 1e-9, z = (pB - pA) / se0;
+  const pv = 2 * (1 - normCdf(Math.abs(z)));
+  const se1 = Math.sqrt(pA * (1 - pA) / nA + pB * (1 - pB) / nB), diff = pB - pA;
+  const lo = diff - zc * se1, hi = diff + zc * se1, sig = Math.abs(z) > zc;
+  const lift = pA ? diff / pA : 0;
+  $('#ab-out').innerHTML = `
+    <div class="verdict ${sig ? 'ok' : 'no'}">${sig ? `Diferença estatisticamente significativa a ${fmtPct(+conf, 0)}` : `Sem evidência suficiente a ${fmtPct(+conf, 0)}`}
+      <small>${sig ? (diff > 0 ? 'A variante B converte mais que o controle.' : 'A variante B converte menos que o controle.') : 'A diferença observada pode ser ruído. Colete mais dados antes de decidir e não pare o teste ao primeiro sinal favorável.'}</small></div>
+    <div>
+      <div class="stat-line"><span>Conversão do controle (A)</span><b>${fmtPct(pA, 2)}</b></div>
+      <div class="stat-line"><span>Conversão da variante (B)</span><b>${fmtPct(pB, 2)}</b></div>
+      <div class="stat-line"><span>Ganho relativo</span><b>${fmtSigned(lift, 1)}</b></div>
+      <div class="stat-line"><span>Diferença absoluta (IC ${fmtPct(+conf, 0)})</span><b>${fmtNum(diff * 100, 2)} pp (${fmtNum(lo * 100, 2)} a ${fmtNum(hi * 100, 2)})</b></div>
+      <div class="stat-line"><span>Estatística z</span><b>${fmtNum(z, 2)}</b></div>
+      <div class="stat-line"><span>Valor-p (bicaudal)</span><b>${pv < 0.0001 ? '< 0,0001' : fmtNum(pv, 4)}</b></div>
+    </div>`;
+  // curva normal
+  const X0 = 20, X1 = 620, xs = v => X0 + (v + 4.5) / 9 * (X1 - X0), base = 140, hgt = 110;
+  const dens = v => Math.exp(-v * v / 2) / Math.sqrt(2 * Math.PI) / 0.4 * hgt;
+  const path = (a, b) => { let d = ''; for (let v = a; v <= b + 1e-9; v += 0.05) d += (d ? 'L' : 'M') + xs(v).toFixed(1) + ' ' + (base - dens(v)).toFixed(1); return d; };
+  const tail = (a, b) => path(a, b) + `L${xs(b).toFixed(1)} ${base}L${xs(a).toFixed(1)} ${base}Z`;
+  const zm = Math.max(-4.4, Math.min(4.4, z));
+  $('#ab-bell').innerHTML = `
+    <path d="${tail(-4.5, -zc)}" style="fill:var(--bad);opacity:.25"/><path d="${tail(zc, 4.5)}" style="fill:var(--bad);opacity:.25"/>
+    <path d="${path(-4.5, 4.5)}" style="fill:none;stroke:var(--ink-2);stroke-width:2"/>
+    <line x1="${X0}" y1="${base}" x2="${X1}" y2="${base}" style="stroke:var(--line);stroke-width:1"/>
+    <line x1="${xs(zm)}" y1="${base - hgt - 6}" x2="${xs(zm)}" y2="${base}" style="stroke:var(--brand);stroke-width:2.5"/>
+    <text x="${xs(zm)}" y="${base - hgt - 12}" text-anchor="${zm > 2.5 ? 'end' : zm < -2.5 ? 'start' : 'middle'}" style="fill:var(--brand);font:600 13px var(--font-body)">z = ${fmtNum(z, 2)}</text>
+    <text x="${xs(-zc) - 6}" y="${base - 30}" text-anchor="end" style="fill:var(--bad);font:500 12px var(--font-body)">região de rejeição</text>
+    <text x="${xs(zc) + 6}" y="${base - 30}" style="fill:var(--bad);font:500 12px var(--font-body)">região de rejeição</text>
+    ${[-4, -2, 0, 2, 4].map(v => `<text x="${xs(v)}" y="${base + 18}" text-anchor="middle" style="fill:var(--ink-3);font:400 12px var(--font-body)">${v}</text>`).join('')}`;
+}
+
+/* =====================================================================
+   QUALIDADE DE DADOS: base bruta com problemas reais + pipeline
+   ===================================================================== */
+const stripAcc = s => String(s).normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+const normKey = s => stripAcc(s).toLowerCase().replace(/\s+/g, ' ').trim();
+const UFS = { Sudeste: ['SP', 'RJ', 'MG', 'ES'], Nordeste: ['BA', 'PE', 'CE'], Sul: ['PR', 'SC', 'RS'], 'Centro-Oeste': ['GO', 'DF', 'MT'], Norte: ['AM', 'PA'] };
+const CAT_MAP = {}, REG_MAP = {};
+CAT_NAMES.forEach(n => { CAT_MAP[normKey(n)] = n; });
+REGS.forEach(n => { REG_MAP[normKey(n)] = n; UFS[n].forEach(u => { REG_MAP[u.toLowerCase()] = n; }); });
+const ISO = /^\d{4}-\d{2}-\d{2}$/;
+const brl = v => 'R$ ' + v.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+function isMissing(v) { return v === null || v === undefined || (typeof v === 'string' && (v.trim() === '' || v.trim().toUpperCase() === 'N/D')); }
+function parseMoney(v) {
+  if (typeof v === 'number') return v;
+  if (v === null || v === undefined) return null;
+  const t = String(v).trim().toUpperCase(); if (t === '' || t === 'N/D') return null;
+  const n = parseFloat(t.replace('R$', '').replace(/\s/g, '').replace(/\./g, '').replace(',', '.'));
+  return isFinite(n) ? n : null;
+}
+function parseDateStr(s) {
+  s = String(s).trim(); let m;
+  if (ISO.test(s)) return s;
+  if ((m = s.match(/^(\d{2})\/(\d{2})\/(\d{4})$/))) return `${m[3]}-${m[2]}-${m[1]}`;
+  if ((m = s.match(/^(\d{2})-([a-z]{3})-(\d{2})$/))) { const mi = MES.indexOf(m[2]); if (mi >= 0) return `20${m[3]}-${p2(mi + 1)}-${m[1]}`; }
+  return null;
+}
+function buildRaw() {
+  const rng = mulberry32(777), N = 200, out = [];
+  const varCat = name => {
+    const r = rng();
+    if (r < 0.34) return name.toLowerCase(); if (r < 0.6) return name.toUpperCase();
+    if (r < 0.8) return stripAcc(name); return '  ' + name + ' ';
+  };
+  for (let i = 0; i < N; i++) {
+    const o = ORD[Math.floor(rng() * ORD.length)], mi = monthInfo(o.m);
+    let data = `${mi.y}-${p2(mi.m + 1)}-${p2(o.d)}`; const rd = rng();
+    if (rd > 0.65 && rd <= 0.9) data = `${p2(o.d)}/${p2(mi.m + 1)}/${mi.y}`;
+    else if (rd > 0.9) data = `${p2(o.d)}-${MES[mi.m]}-${String(mi.y).slice(2)}`;
+    let regiao = REGS[o.reg]; const rr = rng();
+    if (rr < 0.05) regiao = null;
+    else if (rr < 0.20) { const u = UFS[regiao]; regiao = u[Math.floor(rng() * u.length)]; }
+    else if (rr < 0.27) regiao = rng() < 0.5 ? regiao.toUpperCase() + ' ' : regiao.toLowerCase();
+    let categoria = CATS[o.cat].n; if (rng() < 0.16) categoria = varCat(categoria);
+    let valor = Math.round(o.rev * 100) / 100; const rv = rng();
+    if (rv < 0.16) valor = brl(valor); else if (rv < 0.19) valor = null; else if (rv < 0.215) valor = 'N/D';
+    out.push({ id: 'PED-' + (48200 + i), data, cliente: 'C' + (1000 + Math.floor(rng() * 9000)), regiao, categoria, valor });
+  }
+  [17, 58, 101, 139, 177].forEach(k => { const b = typeof out[k].valor === 'number' ? out[k].valor : 240 + rng() * 200; out[k].valor = Math.round(b * 100 * 100) / 100; }); // erro de casas decimais (x100)
+  const dup = new Set(); while (dup.size < 9) dup.add(Math.floor(rng() * N));
+  const res = []; out.forEach((r, i) => { res.push(r); if (dup.has(i)) res.push({ ...r }); });
+  return res.map((r, i) => ({ ...r, _src: i }));
+}
+const RAW = buildRaw();
+const FENCE = (() => {
+  const lv = RAW.map(r => parseMoney(r.valor)).filter(v => v !== null && v > 0).map(Math.log);
+  const q1 = quantile(lv, 0.25), q3 = quantile(lv, 0.75);
+  return Math.exp(q3 + 2.5 * (q3 - q1));
+})();
+
+const DQ_STEPS = [
+  {
+    id: 'dedupe', title: 'Remover pedidos duplicados', dim: 'Unicidade',
+    desc: 'Mantém a primeira ocorrência de cada id_pedido.',
+    found: rows => rows.length - new Set(rows.map(r => r.id)).size,
+    apply(rows) { const seen = new Set(); return rows.filter(r => { if (seen.has(r.id)) return false; seen.add(r.id); return true; }); },
+    code: 'df = df.drop_duplicates(subset="id_pedido", keep="first")'
+  },
+  {
+    id: 'dates', title: 'Padronizar datas para ISO 8601', dim: 'Validade',
+    desc: 'Converte 14/03/2025 e 14-mar-25 para 2025-03-14.',
+    found: rows => rows.filter(r => !isMissing(r.data) && !ISO.test(r.data)).length,
+    apply(rows) { rows.forEach(r => { if (!isMissing(r.data)) { const p = parseDateStr(r.data); if (p) r.data = p; } }); return rows; },
+    code: 'df["data"] = pd.to_datetime(df["data"], format="mixed", dayfirst=True).dt.strftime("%Y-%m-%d")'
+  },
+  {
+    id: 'money', title: 'Converter valores em texto para número', dim: 'Validade',
+    desc: 'Transforma "R$ 1.234,50" em 1234.50 e trata "N/D" como nulo.',
+    found: rows => rows.filter(r => typeof r.valor === 'string' && !isMissing(r.valor)).length,
+    apply(rows) { rows.forEach(r => { if (typeof r.valor === 'string') r.valor = parseMoney(r.valor); }); return rows; },
+    code: 'df["valor"] = df["valor"].map(parse_brl)  # "R$ 1.234,50" vira 1234.5; "N/D" vira nulo'
+  },
+  {
+    id: 'standard', title: 'Padronizar categorias e regiões', dim: 'Consistência',
+    desc: 'Unifica caixa, acentos, espaços e converte UF (SP, BA) em região.',
+    found: rows => rows.reduce((n, r) => n + (!isMissing(r.regiao) && !REGS.includes(r.regiao) ? 1 : 0) + (!isMissing(r.categoria) && !CAT_NAMES.includes(r.categoria) ? 1 : 0), 0),
+    apply(rows) { rows.forEach(r => { if (!isMissing(r.regiao)) r.regiao = REG_MAP[normKey(r.regiao)] || r.regiao; if (!isMissing(r.categoria)) r.categoria = CAT_MAP[normKey(r.categoria)] || r.categoria; }); return rows; },
+    code: 'df["categoria"] = df["categoria"].map(normalizar).map(CATEGORIAS)\ndf["regiao"] = df["regiao"].map(normalizar).map(REGIOES_E_UFS)'
+  },
+  {
+    id: 'outliers', title: 'Limitar valores extremos', dim: 'Acurácia',
+    desc: 'Detecta erros de casas decimais por IQR em escala logarítmica e limita ao teto.',
+    found: rows => rows.filter(r => { const v = parseMoney(r.valor); return v !== null && v > FENCE; }).length,
+    apply(rows) { rows.forEach(r => { if (typeof r.valor === 'number' && r.valor > FENCE) { r.valor = Math.round(FENCE * 100) / 100; r._f.valor = 'capped'; } }); return rows; },
+    code: 'lq1, lq3 = np.log(df["valor"].dropna()).quantile([.25, .75])\nlimite = np.exp(lq3 + 2.5 * (lq3 - lq1))  # cauda longa: IQR em escala log\ndf["valor_limitado"] = df["valor"] > limite\ndf["valor"] = df["valor"].clip(upper=limite)'
+  },
+  {
+    id: 'nulls', title: 'Tratar valores ausentes', dim: 'Completude',
+    desc: 'Imputa o valor pela mediana da categoria e marca a região como "Não informado". Tudo sinalizado.',
+    found: rows => rows.reduce((n, r) => n + (isMissing(r.valor) ? 1 : 0) + (isMissing(r.regiao) ? 1 : 0), 0),
+    apply(rows) {
+      const byCat = {}; rows.forEach(r => { if (typeof r.valor === 'number') (byCat[normKey(r.categoria || '')] = byCat[normKey(r.categoria || '')] || []).push(r.valor); });
+      const all = [].concat(...Object.values(byCat)), gmed = quantile(all, 0.5);
+      rows.forEach(r => {
+        if (isMissing(r.valor)) { const a = byCat[normKey(r.categoria || '')]; r.valor = Math.round((a && a.length ? quantile(a, 0.5) : gmed) * 100) / 100; r._f.valor = 'imputed'; }
+        if (isMissing(r.regiao)) { r.regiao = 'Não informado'; r._f.regiao = 'imputed'; }
+      });
+      return rows;
+    },
+    code: 'df["valor_imputado"] = df["valor"].isna()\ndf["valor"] = df["valor"].fillna(df.groupby("categoria")["valor"].transform("median"))\ndf["regiao"] = df["regiao"].fillna("Não informado")'
+  }
+];
+DQ_STEPS.forEach(s => { s.n = s.found(RAW); });
+const DQ_ON = new Set();
+
+function dqRun() {
+  let rows = RAW.map(r => ({ ...r, _f: {} }));
+  DQ_STEPS.forEach(s => { if (DQ_ON.has(s.id)) rows = s.apply(rows); });
+  return rows;
+}
+function dqMetrics(rows) {
+  const n = rows.length || 1; let filled = 0, vOk = 0, vTot = 0, cOk = 0, cTot = 0, aOk = 0, aTot = 0;
+  const ids = new Set();
+  for (const r of rows) {
+    ids.add(r.id);
+    ['data', 'regiao', 'categoria', 'valor'].forEach(k => { if (!isMissing(r[k])) filled++; });
+    if (!isMissing(r.data)) { vTot++; if (ISO.test(r.data) && !isNaN(Date.parse(r.data))) vOk++; }
+    if (!isMissing(r.valor)) { vTot++; if (typeof r.valor === 'number' && isFinite(r.valor)) { vOk++; aTot++; if (r.valor <= FENCE + 0.005) aOk++; } }
+    if (!isMissing(r.regiao)) { cTot++; if (REGS.includes(r.regiao) || r.regiao === 'Não informado') cOk++; }
+    if (!isMissing(r.categoria)) { cTot++; if (CAT_NAMES.includes(r.categoria)) cOk++; }
+  }
+  const dims = [
+    ['Completude', filled / (n * 4)], ['Unicidade', ids.size / n], ['Validade', vTot ? vOk / vTot : 1],
+    ['Consistência', cTot ? cOk / cTot : 1], ['Acurácia', aTot ? aOk / aTot : 1]
+  ];
+  return { dims, score: dims.reduce((a, d) => a + d[1], 0) / dims.length };
+}
+function renderDQ() {
+  const box = $('#dq-steps');
+  if (!box.dataset.built) {
+    box.innerHTML = DQ_STEPS.map((s, i) => `<div class="step"><input type="checkbox" id="dqs-${s.id}" data-id="${s.id}"><label for="dqs-${s.id}"><span class="ord">${i + 1}.</span> ${esc(s.title)}</label><span class="chip" title="Ocorrências encontradas na base bruta">${s.n} ${s.n === 1 ? 'ocorrência' : 'ocorrências'}</span><p>${esc(s.desc)} <span class="muted">Melhora: ${s.dim.toLowerCase()}.</span></p></div>`).join('');
+    box.dataset.built = '1';
+    $$('input[type=checkbox]', box).forEach(cb => cb.addEventListener('change', () => { cb.checked ? DQ_ON.add(cb.dataset.id) : DQ_ON.delete(cb.dataset.id); renderDQ(); }));
+  }
+  $$('input[type=checkbox]', box).forEach(cb => { cb.checked = DQ_ON.has(cb.dataset.id); });
+
+  const rows = dqRun(), M = dqMetrics(rows), B = dqMetrics(RAW.map(r => ({ ...r })));
+  $('#dq-score').textContent = Math.round(M.score * 100) + '%';
+  const d = Math.round((M.score - B.score) * 100);
+  $('#dq-delta').textContent = d === 0 ? `Base bruta: ${Math.round(B.score * 100)}%` : `+${d} pontos sobre a base bruta (${Math.round(B.score * 100)}%)`;
+  $('#dq-dims').innerHTML = M.dims.map((x, i) => `<div class="dim"><span>${x[0]}</span><div class="trk"><i style="width:${(x[1] * 100).toFixed(1)}%"></i></div><span class="pv num">${Math.round(x[1] * 100)}%</span></div>`).join('');
+
+  // tabela
+  const seen = new Set(); const fmtV = v => v === null || v === undefined ? '<span class="muted">nulo</span>' : typeof v === 'number' ? fmtBRL2(v) : esc(v === '' ? '(vazio)' : v);
+  const cols = [['id', 'id_pedido'], ['data', 'data'], ['cliente', 'cliente'], ['regiao', 'região'], ['categoria', 'categoria'], ['valor', 'valor']];
+  const bad = (k, r) => {
+    const v = r[k];
+    if (k === 'data') return isMissing(v) || !ISO.test(v);
+    if (k === 'regiao') return isMissing(v) || !(REGS.includes(v) || v === 'Não informado');
+    if (k === 'categoria') return isMissing(v) || !CAT_NAMES.includes(v);
+    if (k === 'valor') return isMissing(v) || typeof v !== 'number' || v > FENCE + 0.005;
+    return false;
+  };
+  let dupes = 0;
+  const body = rows.map(r => {
+    const isDup = seen.has(r.id); seen.add(r.id); if (isDup) dupes++;
+    const tds = cols.map(([k]) => {
+      let cls = '';
+      if (r._f[k]) cls = 'flag';
+      else if (bad(k, r)) cls = 'bad';
+      else if (RAW[r._src][k] !== r[k]) cls = 'fixed';
+      return `<td class="${cls}">${k === 'id' || k === 'cliente' ? esc(r[k]) : fmtV(r[k])}</td>`;
+    }).join('');
+    return `<tr${isDup ? ' class="dupe"' : ''}>${tds}</tr>`;
+  }).join('');
+  $('#dq-table').innerHTML = `<thead><tr>${cols.map(c => `<th>${c[1]}</th>`).join('')}</tr></thead><tbody>${body}</tbody>`;
+  const flagged = rows.reduce((a, r) => a + Object.keys(r._f).length, 0);
+  $('#dq-count').textContent = `${fmtInt(rows.length)} linhas${dupes ? ` (${dupes} duplicadas)` : ''}${flagged ? `, ${flagged} células sinalizadas` : ''}`;
+
+  const lines = ['import pandas as pd', 'import numpy as np', 'from limpeza import parse_brl, normalizar', '', 'df = pd.read_csv("pedidos_brutos.csv")', ''];
+  DQ_STEPS.forEach((s, i) => { if (DQ_ON.has(s.id)) { lines.push(`# ${i + 1}. ${s.title.toLowerCase()}`, s.code, ''); } });
+  if (DQ_ON.size === 0) lines.push('# ligue etapas ao lado para montar o pipeline', '');
+  lines.push('df.to_parquet("pedidos_tratados.parquet", index=False)');
+  $('#dq-code').innerHTML = hl(lines.join('\n'), 'py');
+}
+
+/* =====================================================================
+   CONSULTAS SQL (gera o SQL e executa sobre os dados)
+   ===================================================================== */
+const Q = { metric: 'rev', dim: 'cat', year: -1, cat: -1, order: 'desc', limit: 10 };
+const Q_METRICS = [
+  { k: 'rev', label: 'Receita', alias: 'receita', sql: 'SUM(f.receita)', fmt: fmtBRL },
+  { k: 'n', label: 'Pedidos', alias: 'pedidos', sql: 'COUNT(*)', fmt: fmtInt },
+  { k: 'tk', label: 'Ticket médio', alias: 'ticket_medio', sql: 'AVG(f.receita)', fmt: fmtBRL },
+  { k: 'cust', label: 'Clientes distintos', alias: 'clientes', sql: 'COUNT(DISTINCT f.cliente_id)', fmt: fmtInt },
+  { k: 'mg', label: 'Margem bruta', alias: 'margem', sql: 'SUM(f.receita - f.custo) / SUM(f.receita)', fmt: v => fmtPct(v) }
+];
+const yearOf = m => monthInfo(m).y;
+const Q_DIMS = [
+  { k: 'cat', label: 'Categoria', alias: 'categoria', sql: 'p.categoria', join: 'p', key: o => o.cat, name: k => CATS[k].n },
+  { k: 'reg', label: 'Região do cliente', alias: 'regiao', sql: 'c.regiao', join: 'c', key: o => o.reg, name: k => REGS[k] },
+  { k: 'ch', label: 'Canal de aquisição', alias: 'canal', sql: 'c.canal_aquisicao', join: 'c', key: o => o.ch, name: k => CHS[k] },
+  { k: 'mes', label: 'Mês', alias: 'mes', sql: "DATE_TRUNC('month', f.data_pedido)", key: o => o.m, name: k => monthLabel(k), chrono: true },
+  { k: 'tri', label: 'Trimestre', alias: 'trimestre', sql: "DATE_TRUNC('quarter', f.data_pedido)", key: o => yearOf(o.m) * 10 + Math.floor(monthInfo(o.m).m / 3) + 1, name: k => `${Math.floor(k / 10)}-T${k % 10}`, chrono: true },
+  { k: 'ano', label: 'Ano', alias: 'ano', sql: 'EXTRACT(YEAR FROM f.data_pedido)', key: o => yearOf(o.m), name: k => String(k), chrono: true }
+];
+function agg2(list, k) {
+  const a = agg(list);
+  return k === 'rev' ? a.rev : k === 'n' ? a.n : k === 'tk' ? a.tk : k === 'cust' ? a.cust : a.mg;
+}
+function renderSQL() {
+  const M = Q_METRICS.find(m => m.k === Q.metric), D = Q_DIMS.find(d => d.k === Q.dim);
+  const years = [...new Set(Array.from({ length: NM }, (_, i) => yearOf(i)))];
+  const needP = D.join === 'p' || Q.cat >= 0, needC = D.join === 'c';
+  const where = [];
+  if (Q.year >= 0) where.push(`EXTRACT(YEAR FROM f.data_pedido) = ${years[Q.year]}`);
+  if (Q.cat >= 0) where.push(`p.categoria = '${CATS[Q.cat].n}'`);
+  let sql = `SELECT\n  ${D.sql} AS ${D.alias},\n  ${M.sql} AS ${M.alias}\nFROM fato_pedidos f`;
+  if (needC) sql += '\nJOIN dim_cliente c ON c.cliente_id = f.cliente_id';
+  if (needP) sql += '\nJOIN dim_produto p ON p.produto_id = f.produto_id';
+  if (where.length) sql += '\nWHERE ' + where.join('\n  AND ');
+  sql += `\nGROUP BY 1\nORDER BY ${Q.order === 'key' ? '1' : '2 ' + (Q.order === 'asc' ? 'ASC' : 'DESC')}\nLIMIT ${Q.limit};`;
+  $('#q-sql').innerHTML = hl(sql, 'sql');
+
+  const t0 = performance.now();
+  const list = ORD.filter(o => (Q.year < 0 || yearOf(o.m) === years[Q.year]) && (Q.cat < 0 || o.cat === Q.cat));
+  const g = groupBy(list, D.key);
+  let res = [...g.entries()].map(([k, l]) => ({ k, label: D.name(k), v: agg2(l, M.k) }));
+  res.sort(Q.order === 'key' ? (a, b) => a.k - b.k : Q.order === 'asc' ? (a, b) => a.v - b.v : (a, b) => b.v - a.v);
+  res = res.slice(0, Q.limit);
+  const ms = performance.now() - t0, mx = Math.max(...res.map(r => r.v), 1e-9);
+  $('#q-meta').textContent = `${fmtInt(list.length)} de ${fmtInt(ORD.length)} linhas, ${fmtNum(Math.max(ms, 0.1), 1)} ms`;
+  $('#q-res').innerHTML = `<thead><tr><th>${D.alias}</th><th class="r">${M.alias}</th><th></th></tr></thead><tbody>` +
+    (res.length ? res.map(r => `<tr><td>${esc(r.label)}</td><td class="r num"><strong>${M.fmt(r.v)}</strong></td><td><div class="bar-cell"><i style="width:${Math.max(2, Math.round(r.v / mx * 110))}px"></i></div></td></tr>`).join('') : '<tr><td colspan="3" class="muted">Nenhuma linha atende aos filtros.</td></tr>') + '</tbody>';
+}
+function initSQL() {
+  fillSelect($('#q-metric'), Q_METRICS.map(m => m.label));
+  fillSelect($('#q-dim'), Q_DIMS.map(d => d.label));
+  const years = [...new Set(Array.from({ length: NM }, (_, i) => yearOf(i)))];
+  fillSelect($('#q-year'), years.map(String), 'Todos os anos');
+  fillSelect($('#q-cat'), CAT_NAMES, 'Todas as categorias');
+  $('#q-year').value = '-1'; $('#q-cat').value = '-1';
+  const bind = (id, fn) => $(id).addEventListener('change', e => { fn(e.target.value); renderSQL(); });
+  bind('#q-metric', v => { Q.metric = Q_METRICS[+v].k; });
+  bind('#q-dim', v => { Q.dim = Q_DIMS[+v].k; const d = Q_DIMS[+v]; if (d.chrono && Q.order !== 'key') { Q.order = 'key'; $('#q-order').value = 'key'; } });
+  bind('#q-year', v => { Q.year = +v; });
+  bind('#q-cat', v => { Q.cat = +v; });
+  bind('#q-order', v => { Q.order = v; });
+  bind('#q-limit', v => { Q.limit = +v; });
+}
+
+
+/* =====================================================================
+   GALERIA DE GRÁFICOS: 21 tipos, todos sobre os mesmos dados sintéticos
+   ===================================================================== */
+const G = {};
+const SHORT_CAT = ['Eletr.', 'Casa', 'Moda', 'Beleza', 'Esport.', 'Livros'];
+const REG_AB = ['SE', 'NE', 'S', 'CO', 'N'];
+const REG_LAB = ['Sudeste', 'Nordeste', 'Sul', 'C. Oeste', 'Norte'];
+const catRev = list => { const a = Array(6).fill(0); for (const o of list) a[o.cat] += o.rev; return a; };
+const sumArr = a => a.reduce((x, y) => x + y, 0);
+function gdata() {
+  if (G.ok) return G;
+  G.y12 = sel({ from: 24, to: NM, reg: -1, cat: -1 });
+  G.p12 = sel({ from: 12, to: 24, reg: -1, cat: -1 });
+  G.mAll = monthlyRev(ORD);
+  const f = new Int32Array(CUS.length), r = new Float64Array(CUS.length);
+  for (const o of ORD) { f[o.c]++; r[o.c] += o.rev; }
+  G.cf = f; G.cr = r; G.ok = true;
+  return G;
+}
+function textOn(hex) {
+  let h = (hex || '#888888').replace('#', ''); if (h.length === 3) h = h.split('').map(x => x + x).join('');
+  const n = parseInt(h, 16), lum = 0.299 * ((n >> 16) & 255) + 0.587 * ((n >> 8) & 255) + 0.114 * (n & 255);
+  return lum > 150 ? '#0F1B2D' : '#FFFFFF';
+}
+const moneyY = () => ({ beginAtZero: true, ticks: { callback: v => fmtK(v) } });
+const noGridX = () => ({ grid: { display: false } });
+const tipMoney = c => ` ${c.dataset.label}: ${fmtBRL(c.parsed.y)}`;
+const cap = s => s[0].toUpperCase() + s.slice(1);
+
+/* ---------- Comparação ---------- */
+function gBar(id) {
+  const col = palette(), a = catRev(G.y12), b = catRev(G.p12);
+  mkChart(id, { type: 'bar', data: { labels: CAT_NAMES, datasets: [
+    { label: '12 meses anteriores', data: b, backgroundColor: withAlpha(col[5], 0.5), borderRadius: 4 },
+    { label: 'Últimos 12 meses', data: a, backgroundColor: col[0], borderRadius: 4 }] },
+    options: { plugins: { legend: { position: 'bottom' }, tooltip: { callbacks: { label: tipMoney } } }, scales: { y: moneyY(), x: noGridX() } } });
+}
+function gHBar(id) {
+  const col = palette();
+  const t = CATS.map((c, i) => ({ n: c.n, v: agg(G.y12.filter(o => o.cat === i)).tk })).sort((x, y) => y.v - x.v);
+  mkChart(id, { type: 'bar', data: { labels: t.map(x => x.n), datasets: [{ data: t.map(x => x.v), backgroundColor: col[1], borderRadius: 4 }] },
+    options: { indexAxis: 'y', plugins: { legend: { display: false }, tooltip: { callbacks: { label: c => ` Ticket médio: ${fmtBRL(c.parsed.x)}` } } },
+      scales: { x: { beginAtZero: true, ticks: { callback: v => 'R$ ' + v } }, y: { grid: { display: false } } } } });
+}
+function gRadar(id) {
+  const col = palette(), lab = ['Receita', 'Ticket médio', 'Margem', 'Pedidos por cliente', 'Crescimento'];
+  const M = CATS.map((_, i) => {
+    const A = agg(G.y12.filter(o => o.cat === i)), B = agg(G.p12.filter(o => o.cat === i));
+    return [A.rev, A.tk, A.mg, A.n / (A.cust || 1), rel(A.rev, B.rev)];
+  });
+  const mn = lab.map((_, j) => Math.min(...M.map(r => r[j]))), mx = lab.map((_, j) => Math.max(...M.map(r => r[j])));
+  const norm = (v, j) => (v - mn[j]) / ((mx[j] - mn[j]) || 1) * 100;
+  const pickC = [0, 2, 3];
+  mkChart(id, { type: 'radar', data: { labels: lab, datasets: pickC.map((ci, k) => ({ label: CATS[ci].n, data: M[ci].map(norm), borderColor: col[k], backgroundColor: withAlpha(col[k], 0.16), pointBackgroundColor: col[k], borderWidth: 2 })) },
+    options: { plugins: { legend: { position: 'bottom' }, tooltip: { callbacks: { label: c => ` ${c.dataset.label}: ${Math.round(c.parsed.r)} de 100` } } },
+      scales: { r: { min: 0, max: 100, ticks: { display: false }, pointLabels: { font: { size: 11 } } } } } });
+}
+function gPareto(id) {
+  const col = palette(), m = new Map();
+  for (const o of G.y12) { const k = o.cat * 10 + o.reg; m.set(k, (m.get(k) || 0) + o.rev); }
+  const arr = [...m.entries()].map(([k, v]) => ({ c: Math.floor(k / 10), r: k % 10, v })).sort((a, b) => b.v - a.v);
+  const tot = sumArr(arr.map(x => x.v)), top = arr.slice(0, 12); let run = 0;
+  const cum = top.map(x => { run += x.v; return run / tot * 100; });
+  mkChart(id, { type: 'bar', data: { labels: top.map(x => SHORT_CAT[x.c] + ' ' + REG_AB[x.r]), datasets: [
+    { type: 'line', label: '% acumulada', data: cum, yAxisID: 'y1', borderColor: col[2], backgroundColor: col[2], pointRadius: 3, borderWidth: 2.5, tension: 0.2, order: 0 },
+    { label: 'Receita', data: top.map(x => x.v), backgroundColor: col[0], borderRadius: 4, order: 1 }] },
+    options: { plugins: { legend: { position: 'bottom' }, tooltip: { callbacks: { title: it => `${CATS[top[it[0].dataIndex].c].n} no ${REGS[top[it[0].dataIndex].r]}`, label: c => c.datasetIndex === 0 ? ` % acumulada: ${fmtNum(c.parsed.y, 1)}%` : ` Receita: ${fmtBRL(c.parsed.y)}` } } },
+      scales: { y: moneyY(), y1: { position: 'right', min: 0, max: 100, grid: { drawOnChartArea: false }, ticks: { callback: v => v + '%' } }, x: noGridX() } } });
+}
+
+/* ---------- Evolução no tempo ---------- */
+function gLine(id) {
+  const col = palette(), y = G.mAll, ma = y.map((_, i) => (i < 2 ? null : (y[i] + y[i - 1] + y[i - 2]) / 3));
+  mkChart(id, { type: 'line', data: { labels: y.map((_, i) => monthLabel(i)), datasets: [
+    { label: 'Receita mensal', data: y, borderColor: withAlpha(col[0], 0.45), backgroundColor: col[0], pointRadius: 2, borderWidth: 1.5, tension: 0.15 },
+    { label: 'Média móvel de 3 meses', data: ma, borderColor: col[2], pointRadius: 0, borderWidth: 3, tension: 0.3 }] },
+    options: { interaction: { mode: 'index', intersect: false }, plugins: { legend: { position: 'bottom' }, tooltip: { callbacks: { label: tipMoney } } },
+      scales: { y: moneyY(), x: { grid: { display: false }, ticks: { maxRotation: 0, maxTicksLimit: 12 } } } } });
+}
+function gCombo(id) {
+  const col = palette(), rev = Array(12).fill(0), cost = Array(12).fill(0);
+  for (const o of G.y12) { rev[o.m - 24] += o.rev; cost[o.m - 24] += o.cost; }
+  mkChart(id, { type: 'bar', data: { labels: rev.map((_, i) => monthLabel(24 + i)), datasets: [
+    { type: 'line', label: 'Margem bruta', data: rev.map((r, i) => (r - cost[i]) / r * 100), yAxisID: 'y1', borderColor: col[3], backgroundColor: col[3], borderWidth: 2.5, pointRadius: 3, tension: 0.25, order: 0 },
+    { label: 'Receita', data: rev, backgroundColor: withAlpha(col[0], 0.85), borderRadius: 3, order: 1 }] },
+    options: { plugins: { legend: { position: 'bottom' }, tooltip: { callbacks: { label: c => c.datasetIndex === 0 ? ` Margem: ${fmtNum(c.parsed.y, 1)}%` : ` Receita: ${fmtBRL(c.parsed.y)}` } } },
+      scales: { y: moneyY(), y1: { position: 'right', suggestedMin: 0, grid: { drawOnChartArea: false }, ticks: { callback: v => v + '%' } }, x: { grid: { display: false }, ticks: { maxRotation: 0, autoSkip: true, maxTicksLimit: 8 } } } } });
+}
+function gWaterfall(id) {
+  const col = palette(), good = cssVar('--good', '#0F7A57'), bad = cssVar('--bad', '#C4203F');
+  const a = catRev(G.y12), b = catRev(G.p12), P = sumArr(b), C = sumArr(a);
+  const dl = CATS.map((c, i) => ({ n: c.n, d: a[i] - b[i] })).sort((x, y) => y.d - x.d);
+  let run = P; const labels = ['12 meses anteriores'], data = [[0, P]], colors = [col[5]], vals = [fmtBRL(P)];
+  dl.forEach(x => { const s = run, e = run + x.d; data.push([Math.min(s, e), Math.max(s, e)]); colors.push(x.d >= 0 ? good : bad); labels.push(x.n); vals.push((x.d >= 0 ? '+' : '\u2212') + fmtBRL(Math.abs(x.d))); run = e; });
+  labels.push('Últimos 12 meses'); data.push([0, C]); colors.push(col[0]); vals.push(fmtBRL(C));
+  mkChart(id, { type: 'bar', data: { labels, datasets: [{ data, backgroundColor: colors, borderRadius: 3 }] },
+    options: { plugins: { legend: { display: false }, tooltip: { callbacks: { label: c => ' ' + vals[c.dataIndex] } } },
+      scales: { y: moneyY(), x: { grid: { display: false }, ticks: { autoSkip: false, maxRotation: 50, font: { size: 10 } } } } } });
+}
+function gPolar(id) {
+  const col = palette(), idx = fitModel(G.mAll, NM).s.map(v => Math.exp(v));
+  mkChart(id, { type: 'polarArea', data: { labels: MES.map(cap), datasets: [{ data: idx, backgroundColor: idx.map((_, i) => withAlpha(col[i % 6], 0.7)), borderWidth: 0 }] },
+    options: { plugins: { legend: { position: 'right', labels: { boxWidth: 10, font: { size: 11 } } }, tooltip: { callbacks: { label: c => ` Índice ${fmtNum(c.parsed.r, 2)} (${fmtSigned(c.parsed.r - 1, 0)} sobre a média)` } } },
+      scales: { r: { beginAtZero: true, ticks: { display: false } } } } });
+}
+
+/* ---------- Composição ---------- */
+function gStack(id) {
+  const col = palette(), M = Array.from({ length: 6 }, () => Array(8).fill(0));
+  for (const o of ORD) if (o.m >= 10 && o.m < 34) M[o.cat][Math.floor((o.m - 10) / 3)] += o.rev;
+  const labels = Array.from({ length: 8 }, (_, q) => { const mi = monthInfo(10 + q * 3); return 'T' + (Math.floor(mi.m / 3) + 1) + '/' + String(mi.y).slice(2); });
+  mkChart(id, { type: 'bar', data: { labels, datasets: CATS.map((c, i) => ({ label: c.n, data: M[i], backgroundColor: col[i], borderRadius: 2 })) },
+    options: { plugins: { legend: { position: 'bottom', labels: { boxWidth: 10, font: { size: 11 } } }, tooltip: { callbacks: { label: tipMoney } } },
+      scales: { x: { stacked: true, grid: { display: false } }, y: { stacked: true, ticks: { callback: v => fmtK(v) } } } } });
+}
+function gDonut(id) {
+  const col = palette(), v = CHS.map((_, i) => G.y12.reduce((s, o) => s + (o.ch === i ? o.rev : 0), 0)), t = sumArr(v);
+  mkChart(id, { type: 'doughnut', data: { labels: CHS, datasets: [{ data: v, backgroundColor: col.slice(0, 4), borderColor: cssVar('--surface', '#fff'), borderWidth: 2 }] },
+    options: { cutout: '58%', plugins: { legend: { position: 'bottom' }, tooltip: { callbacks: { label: c => ` ${c.label}: ${fmtBRL(c.parsed)} (${fmtPct(c.parsed / t, 0)})` } } } } });
+}
+function gArea(id) {
+  const col = palette(), R = REGS.map(() => Array(NM).fill(0)), T = Array(NM).fill(0);
+  for (const o of ORD) { R[o.reg][o.m] += o.rev; T[o.m] += o.rev; }
+  mkChart(id, { type: 'line', data: { labels: T.map((_, i) => monthLabel(i)), datasets: REGS.map((r, i) => ({ label: r, data: R[i].map((v, m) => v / T[m] * 100), borderColor: col[i], backgroundColor: withAlpha(col[i], 0.78), fill: i === 0 ? 'origin' : '-1', pointRadius: 0, borderWidth: 1, tension: 0.2 })) },
+    options: { interaction: { mode: 'index', intersect: false }, plugins: { legend: { position: 'bottom' }, tooltip: { callbacks: { label: c => ` ${c.dataset.label}: ${fmtNum(c.parsed.y, 1)}%` } } },
+      scales: { y: { stacked: true, min: 0, max: 100, ticks: { callback: v => v + '%' } }, x: { grid: { display: false }, ticks: { maxRotation: 0, maxTicksLimit: 12 } } } } });
+}
+function gMosaic(id) {
+  const col = palette(), host = document.getElementById(id), M = REGS.map(() => Array(6).fill(0));
+  for (const o of G.y12) M[o.reg][o.cat] += o.rev;
+  const tot = M.map(sumArr), T = sumArr(tot), order = tot.map((_, i) => i).sort((a, b) => tot[b] - tot[a]);
+  host.innerHTML = '<div class="mm">' + order.map(r => `<div class="mm-col" style="flex:${tot[r]} 1 0"><div class="mm-stack">${CATS.map((c, k) => { const sh = M[r][k] / tot[r]; return `<div class="mm-seg" style="flex:${M[r][k]} 1 0;background:${col[k]};color:${textOn(col[k])}" title="${esc(REGS[r])} / ${esc(c.n)}: ${fmtBRL(M[r][k])} (${fmtPct(sh, 0)} da região)">${sh >= 0.08 ? fmtPct(sh, 0) : ''}</div>`; }).join('')}</div><div class="mm-lab" title="${esc(REGS[r])}">${REG_LAB[r]}<br><span>${fmtPct(tot[r] / T, 0)}</span></div></div>`).join('') + '</div>' +
+    '<div class="legend">' + CATS.map((c, k) => `<span><i style="background:${col[k]}"></i>${esc(c.n)}</span>`).join('') + '<span>Largura = peso da região na receita; altura = mix de categorias</span></div>';
+}
+
+/* ---------- Distribuição ---------- */
+function gHist(id) {
+  const col = palette(), bins = Array(16).fill(0), v = G.y12.map(o => o.rev);
+  v.forEach(x => { bins[Math.min(15, Math.floor(x / 100))]++; });
+  const med = quantile(v, 0.5), mean = sumArr(v) / v.length;
+  mkChart(id, { type: 'bar', data: { labels: bins.map((_, i) => (i < 15 ? `${i * 100}` : '1500+')), datasets: [{ data: bins, backgroundColor: col[4], categoryPercentage: 1, barPercentage: 0.94 }] },
+    options: { plugins: { legend: { display: false }, title: { display: true, text: `Mediana ${fmtBRL(med)}; média ${fmtBRL(mean)}`, font: { size: 12, weight: '500' } },
+      tooltip: { callbacks: { title: it => { const i = it[0].dataIndex; return i < 15 ? `R$ ${i * 100} a ${i * 100 + 99}` : 'R$ 1.500 ou mais'; }, label: c => ` ${fmtInt(c.parsed.y)} pedidos` } } },
+      scales: { x: { grid: { display: false }, title: { display: true, text: 'Valor do pedido (R$)' }, ticks: { maxTicksLimit: 8, maxRotation: 0 } }, y: { beginAtZero: true, ticks: { callback: n => fmtInt(n) } } } } });
+}
+function gBox(id) {
+  const host = document.getElementById(id), W = 620, H = 270, L = 112, Rr = 16, T = 8, B = 38;
+  const S = CATS.map((c, i) => {
+    const v = G.y12.filter(o => o.cat === i).map(o => o.rev).sort((a, b) => a - b);
+    const q1 = quantile(v, 0.25), q2 = quantile(v, 0.5), q3 = quantile(v, 0.75), iq = q3 - q1;
+    const lo = v.find(x => x >= q1 - 1.5 * iq), hi = [...v].reverse().find(x => x <= q3 + 1.5 * iq);
+    const out = v.filter(x => x < lo || x > hi), st = Math.max(1, Math.ceil(out.length / 40));
+    return { n: c.n, q1, q2, q3, lo, hi, out: out.filter((_, k) => k % st === 0) };
+  });
+  const xmin = 20, xmax = Math.max(...S.flatMap(s => s.out.concat(s.hi))) * 1.1;
+  const X = v => L + (Math.log(v) - Math.log(xmin)) / (Math.log(xmax) - Math.log(xmin)) * (W - L - Rr);
+  const rh = (H - T - B) / S.length, ticks = [25, 50, 100, 250, 500, 1000, 2500, 5000].filter(t => t <= xmax && t >= xmin);
+  let s = ticks.map(t => `<line x1="${X(t)}" y1="${T}" x2="${X(t)}" y2="${H - B}" style="stroke:var(--line)"/><text x="${X(t)}" y="${H - B + 16}" text-anchor="middle" style="fill:var(--ink-3);font:400 11px var(--font-body)">${fmtInt(t)}</text>`).join('');
+  s += `<text x="${(L + W - Rr) / 2}" y="${H - 6}" text-anchor="middle" style="fill:var(--ink-3);font:400 11px var(--font-body)">Valor do pedido em R$ (escala logarítmica)</text>`;
+  S.forEach((d, i) => {
+    const y = T + rh * i + rh / 2, bh = rh * 0.5;
+    s += `<text x="${L - 10}" y="${y + 4}" text-anchor="end" style="fill:var(--ink);font:500 12px var(--font-body)">${esc(d.n)}</text>`;
+    s += `<line x1="${X(d.lo)}" y1="${y}" x2="${X(d.hi)}" y2="${y}" style="stroke:var(--ink-2);stroke-width:1.5"/>`;
+    s += `<line x1="${X(d.lo)}" y1="${y - bh / 3}" x2="${X(d.lo)}" y2="${y + bh / 3}" style="stroke:var(--ink-2);stroke-width:1.5"/><line x1="${X(d.hi)}" y1="${y - bh / 3}" x2="${X(d.hi)}" y2="${y + bh / 3}" style="stroke:var(--ink-2);stroke-width:1.5"/>`;
+    s += `<rect x="${X(d.q1)}" y="${y - bh / 2}" width="${X(d.q3) - X(d.q1)}" height="${bh}" rx="3" style="fill:var(--brand);fill-opacity:.28;stroke:var(--brand);stroke-width:1.5"><title>${esc(d.n)}: mediana ${fmtBRL(d.q2)}; quartis ${fmtBRL(d.q1)} a ${fmtBRL(d.q3)}</title></rect>`;
+    s += `<line x1="${X(d.q2)}" y1="${y - bh / 2}" x2="${X(d.q2)}" y2="${y + bh / 2}" style="stroke:var(--brand);stroke-width:3"/>`;
+    s += d.out.map(v => `<circle cx="${X(v)}" cy="${y}" r="2" style="fill:var(--c4);fill-opacity:.55"/>`).join('');
+  });
+  host.innerHTML = `<svg class="bell" viewBox="0 0 ${W} ${H}" role="img" aria-label="Boxplot do valor dos pedidos por categoria">${s}</svg>`;
+}
+
+/* ---------- Relação entre variáveis ---------- */
+function gScatter(id) {
+  const col = palette(), pts = [], raw = [];
+  for (let i = 0, k = 0; i < CUS.length; i++) {
+    if (!G.cf[i]) continue; k++; if (k % 25) continue;
+    const jit = ((((i * 2654435761) >>> 0) % 1000) / 1000 - 0.5) * 0.5;
+    pts.push({ x: G.cf[i] + jit, y: G.cr[i] }); raw.push([G.cf[i], G.cr[i]]);
+  }
+  const n = raw.length, mx = sumArr(raw.map(r => r[0])) / n, my = sumArr(raw.map(r => r[1])) / n;
+  let sxy = 0, sxx = 0, syy = 0; raw.forEach(([x, y]) => { sxy += (x - mx) * (y - my); sxx += (x - mx) ** 2; syy += (y - my) ** 2; });
+  const b = sxy / sxx, a = my - b * mx, r = sxy / Math.sqrt(sxx * syy), xM = Math.max(...raw.map(q => q[0]));
+  mkChart(id, { type: 'scatter', data: { datasets: [
+    { label: 'Clientes (amostra)', data: pts, backgroundColor: withAlpha(col[0], 0.4), pointRadius: 3 },
+    { type: 'line', label: 'Reta de regressão', data: [{ x: 1, y: a + b }, { x: xM, y: a + b * xM }], borderColor: col[2], borderWidth: 2.5, pointRadius: 0 }] },
+    options: { plugins: { legend: { position: 'bottom' }, title: { display: true, text: `Correlação r = ${fmtNum(r, 2)} (n = ${n})`, font: { size: 12, weight: '500' } }, tooltip: { callbacks: { label: c => ` ${Math.round(c.parsed.x)} pedidos, ${fmtBRL(c.parsed.y)}` } } },
+      scales: { x: { title: { display: true, text: 'Pedidos por cliente' }, ticks: { precision: 0 } }, y: { beginAtZero: true, title: { display: true, text: 'Receita do cliente' }, ticks: { callback: v => fmtK(v) } } } } });
+}
+function gBubble(id) {
+  const col = palette(), A = CATS.map((_, i) => agg(G.y12.filter(o => o.cat === i))), mx = Math.max(...A.map(x => x.rev));
+  mkChart(id, { type: 'bubble', data: { datasets: CATS.map((c, i) => ({ label: c.n, data: [{ x: A[i].tk, y: A[i].mg * 100, r: 7 + 26 * Math.sqrt(A[i].rev / mx), rev: A[i].rev }], backgroundColor: withAlpha(col[i], 0.6), borderColor: col[i], borderWidth: 1.5 })) },
+    options: { plugins: { legend: { position: 'bottom', labels: { boxWidth: 10, font: { size: 11 } } }, tooltip: { callbacks: { label: c => ` ${c.dataset.label}: ticket ${fmtBRL(c.raw.x)}, margem ${fmtNum(c.raw.y, 1)}%, receita ${fmtK(c.raw.rev)}` } } },
+      scales: { x: { title: { display: true, text: 'Ticket médio (R$)' }, beginAtZero: true, grace: '12%' }, y: { title: { display: true, text: 'Margem bruta (%)' }, grace: '15%', ticks: { callback: v => v + '%' } } } } });
+}
+function gHeat(id) {
+  const host = document.getElementById(id);
+  const idx = CATS.map((_, i) => fitModel(monthlyRev(ORD.filter(o => o.cat === i)), NM).s.map(v => Math.exp(v)));
+  host.innerHTML = '<div class="tbl-wrap"><table class="heat" style="min-width:640px"><thead><tr><th class="rowh">Categoria</th>' + MES.map(m => `<th>${cap(m)}</th>`).join('') + '</tr></thead><tbody>' +
+    CATS.map((c, i) => `<tr><th class="rowh">${esc(c.n)}</th>${idx[i].map(v => { const a = Math.max(0.05, Math.min(1, (v - 0.75) / 0.95)) * 0.92; return `<td style="background:rgba(var(--heat),${a.toFixed(2)});color:${a > 0.68 ? 'var(--heat-ink)' : 'inherit'}" title="${esc(c.n)}: ${fmtNum(v, 2)}">${fmtNum(v, 2)}</td>`; }).join('')}</tr>`).join('') +
+    '</tbody></table></div><p class="muted small" style="margin-top:10px">Índice sazonal: 1,00 é um mês médio; 1,50 é 50% acima da média. Calculado separadamente para cada categoria.</p>';
+}
+
+/* ---------- Fluxo e processo ---------- */
+function gFunnel(id) {
+  const host = document.getElementById(id), ks = [1, 2, 3, 4, 6];
+  const N = ks.map(k => { let n = 0; for (let i = 0; i < CUS.length; i++) if (G.cf[i] >= k) n++; return n; });
+  const lab = ['1 pedido ou mais', '2 ou mais', '3 ou mais', '4 ou mais', '6 ou mais'];
+  host.innerHTML = '<div class="funnel">' + N.map((n, i) => `<div class="frow"><div class="fl">${lab[i]}<small>${i ? fmtPct(n / N[i - 1], 0) + ' do estágio anterior' : 'base de compradores'}</small></div><div><div class="fb" style="width:${Math.max(20, n / N[0] * 100)}%;opacity:${(1 - i * 0.13).toFixed(2)}">${fmtInt(n)}</div></div></div>`).join('') + '</div>';
+}
+function gSankey(id) {
+  const col = palette(), host = document.getElementById(id), W = 620, H = 300, nw = 14, L = 96, Rm = 112, gap = 10, pad = 6;
+  const M = CHS.map(() => Array(6).fill(0)); for (const o of G.y12) M[o.ch][o.cat] += o.rev;
+  const rowT = M.map(sumArr), colT = CATS.map((_, k) => M.reduce((a, r) => a + r[k], 0)), T = sumArr(rowT);
+  const s = (H - 2 * pad - gap * 5) / T, hL = T * s + gap * (CHS.length - 1), hR = T * s + gap * 5;
+  const xl = L, xr = W - Rm - nw; let yl = (H - hL) / 2, yr = (H - hR) / 2;
+  const lp = rowT.map(t => { const y = yl; yl += t * s + gap; return y; }), rp = colT.map(t => { const y = yr; yr += t * s + gap; return y; });
+  const lo = lp.slice(), ro = rp.slice(), mx = (xl + nw + xr) / 2; let links = '', nodes = '';
+  for (let i = 0; i < CHS.length; i++) for (let k = 0; k < 6; k++) {
+    const w = M[i][k] * s, y0 = lo[i] + w / 2, y1 = ro[k] + w / 2; lo[i] += w; ro[k] += w;
+    links += `<path d="M${xl + nw} ${y0} C${mx} ${y0} ${mx} ${y1} ${xr} ${y1}" style="fill:none;stroke:${col[k]};stroke-width:${w.toFixed(1)};opacity:.42"><title>${esc(CHS[i])} para ${esc(CATS[k].n)}: ${fmtBRL(M[i][k])}</title></path>`;
+  }
+  CHS.forEach((c, i) => { const h = rowT[i] * s; nodes += `<rect x="${xl}" y="${lp[i]}" width="${nw}" height="${h}" rx="2" style="fill:var(--ink-2)"/><text x="${xl - 8}" y="${lp[i] + h / 2 + 4}" text-anchor="end" style="fill:var(--ink);font:500 12px var(--font-body)">${esc(c)} ${fmtPct(rowT[i] / T, 0)}</text>`; });
+  CATS.forEach((c, k) => { const h = colT[k] * s; nodes += `<rect x="${xr}" y="${rp[k]}" width="${nw}" height="${h}" rx="2" style="fill:${col[k]}"/><text x="${xr + nw + 8}" y="${rp[k] + h / 2 + 4}" style="fill:var(--ink);font:500 12px var(--font-body)">${esc(c.n)} ${fmtPct(colT[k] / T, 0)}</text>`; });
+  host.innerHTML = `<svg class="bell" viewBox="0 0 ${W} ${H}" role="img" aria-label="Diagrama de Sankey: receita por canal de aquisição e categoria">${links}${nodes}</svg>`;
+}
+
+/* ---------- Indicadores ---------- */
+function gGauge(id) {
+  const rev = agg(G.y12).rev, prev = agg(G.p12).rev, att = rev / (prev * 1.4), shown = Math.min(att, 1) * 100;
+  const colr = att >= 1 ? cssVar('--good', '#0F7A57') : att >= 0.85 ? cssVar('--c3', '#E59A00') : cssVar('--bad', '#C4203F');
+  const ch = mkChart(id, { type: 'doughnut', data: { datasets: [{ data: [shown, 100 - shown], backgroundColor: [colr, cssVar('--surface-2', '#E9EEF5')], borderWidth: 0 }] },
+    options: { rotation: -90, circumference: 180, cutout: '72%', plugins: { legend: { display: false }, tooltip: { enabled: false } } } });
+  const box = document.getElementById(id) ? document.getElementById(id).parentElement : null; if (!box || !ch) return;
+  let t = box.querySelector('.gauge-txt'); if (!t) { t = document.createElement('div'); t.className = 'gauge-txt'; box.appendChild(t); }
+  t.innerHTML = `<b class="num">${fmtPct(att, 0)}</b><span>${fmtK(rev)} de ${fmtK(prev * 1.4)}</span>`;
+}
+function gSpark(id) {
+  const col = palette(), host = document.getElementById(id), rev = Array(NM).fill(0), n = Array(NM).fill(0), cs = Array.from({ length: NM }, () => new Set());
+  for (const o of ORD) { rev[o.m] += o.rev; n[o.m]++; cs[o.m].add(o.c); }
+  const S = [['Receita mensal', rev, fmtK], ['Pedidos por mês', n, fmtInt], ['Ticket médio', rev.map((r, i) => r / n[i]), fmtBRL], ['Clientes ativos', cs.map(s => s.size), fmtInt]];
+  host.innerHTML = '<div class="spark-grid">' + S.map(([t, a, f], k) => {
+    const v = a.slice(12), mn = Math.min(...v), mx = Math.max(...v), P = v.map((x, i) => `${(i / (v.length - 1) * 120).toFixed(1)},${(36 - (x - mn) / ((mx - mn) || 1) * 32).toFixed(1)}`);
+    const d = rel(a[NM - 1], a[NM - 13]);
+    return `<div class="spark"><div class="t">${t}</div><div class="v num">${f(a[NM - 1])}</div><div class="${d >= 0 ? 'pos' : 'neg'} small" style="font-weight:600">${fmtSigned(d, 0)} <span class="neu" style="font-weight:400">no ano</span></div>
+      <svg viewBox="0 0 120 40" preserveAspectRatio="none" role="img" aria-label="${esc(t)}, últimos 24 meses"><polyline points="${P.join(' ')}" style="fill:none;stroke:${col[k]};stroke-width:2;vector-effect:non-scaling-stroke"/></svg></div>`;
+  }).join('') + '</div>';
+}
+
+/* ---------- catálogo e montagem ---------- */
+const GALLERY = [
+  { id: 'bar', tag: 'comparacao', title: 'Barras agrupadas', note: 'Receita por categoria nos últimos 12 meses contra os 12 anteriores. Serve para comparar poucas categorias ou dois períodos.', render: gBar },
+  { id: 'hbar', tag: 'comparacao', title: 'Barras horizontais ordenadas', note: 'Ticket médio por categoria, do maior para o menor. Bom para rótulos longos e rankings.', render: gHBar },
+  { id: 'donut', tag: 'composicao', title: 'Rosca', note: 'Receita por canal de aquisição. Use com poucas fatias e quando o todo importa.', render: gDonut },
+  { id: 'line', tag: 'evolucao', wide: true, title: 'Linha com média móvel', note: 'Receita mensal em 36 meses. A média móvel de 3 meses filtra o ruído e deixa a tendência à vista.', render: gLine },
+  { id: 'gauge', tag: 'indicador', h: 200, title: 'Medidor de meta', note: 'Atingimento de uma meta ilustrativa: +40% sobre os 12 meses anteriores.', render: gGauge },
+  { id: 'stack', tag: 'composicao', title: 'Barras empilhadas', note: 'Receita trimestral dividida por categoria: mostra o total e a composição de cada período.', render: gStack },
+  { id: 'area', tag: 'composicao', wide: true, title: 'Área empilhada 100%', note: 'Participação de cada região na receita, mês a mês. Mostra como o mix muda, não o volume.', render: gArea },
+  { id: 'polar', tag: 'evolucao', title: 'Área polar de sazonalidade', note: 'Índice sazonal por mês do ano, estimado por modelo. Novembro chama a atenção.', render: gPolar },
+  { id: 'radar', tag: 'comparacao', title: 'Radar', note: 'Três categorias em cinco métricas (índices de 0 a 100 entre as seis categorias).', render: gRadar },
+  { id: 'combo', tag: 'evolucao', title: 'Barras e linha com dois eixos', note: 'Receita (barras) e margem bruta (linha) nos últimos 12 meses. Duas escalas, uma história.', render: gCombo },
+  { id: 'waterfall', tag: 'evolucao', title: 'Cascata', note: 'Como a receita dos últimos 12 meses saiu do valor do período anterior, categoria por categoria.', render: gWaterfall },
+  { id: 'scatter', tag: 'relacao', title: 'Dispersão com regressão', note: 'Pedidos por cliente contra receita do cliente, em uma amostra. A reta resume a relação.', render: gScatter },
+  { id: 'bubble', tag: 'relacao', title: 'Bolhas', note: 'Três variáveis em um gráfico: ticket médio, margem e receita (tamanho da bolha).', render: gBubble },
+  { id: 'hist', tag: 'distribuicao', title: 'Histograma', note: 'Distribuição do valor dos pedidos: muitos pedidos baratos e uma cauda longa à direita.', render: gHist },
+  { id: 'box', tag: 'distribuicao', wide: true, html: true, title: 'Boxplot', note: 'Mediana, quartis e valores extremos do pedido em cada categoria. Compara distribuições, não só médias.', render: gBox },
+  { id: 'pareto', tag: 'comparacao', wide: true, title: 'Pareto', note: 'As 12 maiores combinações de categoria e região (SE, NE, S, CO, N) e a receita acumulada delas.', render: gPareto },
+  { id: 'funnel', tag: 'processo', html: true, title: 'Funil de recompra', note: 'Quantos clientes chegam a cada número de pedidos. Mostra onde a base se perde.', render: gFunnel },
+  { id: 'sankey', tag: 'processo', wide: true, html: true, title: 'Sankey', note: 'Fluxo da receita entre canal de aquisição e categoria. A espessura é proporcional ao valor.', render: gSankey },
+  { id: 'spark', tag: 'indicador', html: true, title: 'Indicadores com minigráficos', note: 'Valor atual, variação sobre o ano anterior e a trajetória dos últimos 24 meses.', render: gSpark },
+  { id: 'mosaic', tag: 'composicao', wide: true, html: true, title: 'Mosaico (Marimekko)', note: 'Duas dimensões de composição de uma vez: região (largura) e categoria (altura).', render: gMosaic },
+  { id: 'heat', tag: 'distribuicao', wide: true, html: true, title: 'Mapa de calor de sazonalidade', note: 'Índice sazonal de cada categoria em cada mês do ano. As cores denunciam onde a demanda concentra.', render: gHeat }
+];
+const TAGS = { all: 'Todos', comparacao: 'Comparação', evolucao: 'Evolução no tempo', composicao: 'Composição', distribuicao: 'Distribuição', relacao: 'Relação entre variáveis', processo: 'Fluxo e processo', indicador: 'Indicadores' };
+const GR = new Set(); let gTag = 'all';
+function renderCard(id) {
+  const g = GALLERY.find(x => x.id === id); if (!g) return;
+  gdata(); g.render('g-' + id); GR.add(id);
+}
+function rerenderGallery() { GR.forEach(id => renderCard(id)); }
+function initGallery() {
+  $('#gCount').textContent = GALLERY.length;
+  $('#gallery').innerHTML = GALLERY.map(g => `<article class="panel gcard${g.wide ? ' wide' : ''}" data-tag="${g.tag}" data-id="${g.id}"><h3>${esc(g.title)}</h3><p class="gnote">${esc(g.note)}</p><div class="gbody${g.html ? ' auto' : ''}"${g.h ? ` style="height:${g.h}px"` : ''}>${g.html ? `<div class="viz" id="g-${g.id}"></div>` : `<canvas id="g-${g.id}" role="img" aria-label="${esc(g.title)}. ${esc(g.note)}"></canvas>`}</div></article>`).join('');
+  const counts = {}; GALLERY.forEach(g => { counts[g.tag] = (counts[g.tag] || 0) + 1; });
+  $('#gFilters').innerHTML = Object.keys(TAGS).map(k => `<button type="button" class="fchip" data-tag="${k}" aria-pressed="${k === 'all'}">${TAGS[k]}${k === 'all' ? '' : ` (${counts[k] || 0})`}</button>`).join('');
+  $$('#gFilters .fchip').forEach(b => b.addEventListener('click', () => {
+    gTag = b.dataset.tag;
+    $$('#gFilters .fchip').forEach(x => x.setAttribute('aria-pressed', x === b));
+    $$('.gcard').forEach(c => { c.hidden = !(gTag === 'all' || c.dataset.tag === gTag); });
+    if (typeof Chart !== 'undefined') GR.forEach(id => { const c = CHARTS['g-' + id]; if (c) c.resize(); });
+  }));
+  if (typeof IntersectionObserver === 'function') {
+    const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { renderCard(e.target.dataset.id); io.unobserve(e.target); } }), { rootMargin: '250px' });
+    $$('.gcard').forEach(c => io.observe(c));
+  } else GALLERY.forEach(g => renderCard(g.id));
+}
+
+/* =====================================================================
+   CÓDIGO, MÉTODO E COMPETÊNCIAS
+   ===================================================================== */
+const SNIPPETS = [
+  {
+    id: 'coorte', tab: 'SQL: retenção por coorte', file: 'retencao_coorte.sql', lang: 'sql', code:
+`-- Retenção mensal por coorte de aquisição
+-- Decisão: contamos clientes distintos por mês de atividade, não pedidos,
+-- para que quem compra duas vezes no mês não infle a retenção.
+WITH primeira_compra AS (
+  SELECT
+    cliente_id,
+    DATE_TRUNC('month', MIN(data_pedido)) AS coorte
+  FROM fato_pedidos
+  GROUP BY 1
+),
+atividade AS (
+  SELECT DISTINCT
+    cliente_id,
+    DATE_TRUNC('month', data_pedido) AS mes_atividade
+  FROM fato_pedidos
+),
+coorte_atividade AS (
+  SELECT
+    c.coorte,
+    DATEDIFF('month', c.coorte, a.mes_atividade) AS meses_desde_aquisicao,
+    COUNT(DISTINCT a.cliente_id)                 AS clientes_ativos
+  FROM primeira_compra c
+  JOIN atividade a USING (cliente_id)
+  GROUP BY 1, 2
+)
+SELECT
+  coorte,
+  meses_desde_aquisicao,
+  clientes_ativos,
+  ROUND(
+    clientes_ativos * 1.0
+    / FIRST_VALUE(clientes_ativos) OVER (
+        PARTITION BY coorte
+        ORDER BY meses_desde_aquisicao
+      ),
+    4
+  ) AS taxa_retencao
+FROM coorte_atividade
+WHERE meses_desde_aquisicao BETWEEN 0 AND 12
+ORDER BY coorte, meses_desde_aquisicao;`
+  },
+  {
+    id: 'rfm', tab: 'SQL: segmentação RFM', file: 'segmentacao_rfm.sql', lang: 'sql', code:
+`-- Segmentação RFM com regras de negócio explícitas e auditáveis
+WITH base AS (
+  SELECT
+    cliente_id,
+    DATEDIFF('day', MAX(data_pedido), DATE '2026-08-31') AS recencia_dias,
+    COUNT(*)       AS frequencia,
+    SUM(receita)   AS monetario
+  FROM fato_pedidos
+  GROUP BY 1
+),
+scores AS (
+  SELECT
+    *,
+    CASE WHEN recencia_dias <= 30  THEN 5
+         WHEN recencia_dias <= 90  THEN 4
+         WHEN recencia_dias <= 180 THEN 3
+         WHEN recencia_dias <= 365 THEN 2
+         ELSE 1 END                           AS r,
+    CASE WHEN frequencia >= 6 THEN 5
+         WHEN frequencia >= 4 THEN 4
+         ELSE frequencia END                  AS f,
+    NTILE(5) OVER (ORDER BY monetario)        AS m
+  FROM base
+)
+SELECT
+  CASE
+    WHEN r >= 4 AND f >= 4 THEN 'Campeões'
+    WHEN r >= 3 AND f >= 3 THEN 'Leais'
+    WHEN r >= 4            THEN 'Novos'
+    WHEN r = 3             THEN 'Precisam de atenção'
+    WHEN f >= 3            THEN 'Em risco'
+    ELSE 'Hibernando'
+  END                                          AS segmento,
+  COUNT(*)                                     AS clientes,
+  SUM(monetario)                               AS receita,
+  SUM(monetario) / SUM(SUM(monetario)) OVER () AS pct_receita
+FROM scores
+GROUP BY 1
+ORDER BY receita DESC;`
+  },
+  {
+    id: 'estrela', tab: 'SQL: modelo estrela', file: 'modelo_estrela.sql', lang: 'sql', code:
+`-- Modelo estrela para o painel de vendas
+-- Grão da tabela fato: uma linha por pedido.
+CREATE TABLE dim_cliente (
+  cliente_id      INTEGER PRIMARY KEY,
+  regiao          TEXT NOT NULL,
+  canal_aquisicao TEXT NOT NULL
+);
+
+CREATE TABLE dim_produto (
+  produto_id INTEGER PRIMARY KEY,
+  categoria  TEXT NOT NULL
+);
+
+CREATE TABLE dim_data (
+  data_id   INTEGER PRIMARY KEY,   -- 20260831
+  data      DATE NOT NULL,
+  ano       SMALLINT NOT NULL,
+  trimestre SMALLINT NOT NULL,
+  mes       SMALLINT NOT NULL
+);
+
+CREATE TABLE fato_pedidos (
+  pedido_id  BIGINT PRIMARY KEY,
+  data_id    INTEGER REFERENCES dim_data,
+  cliente_id INTEGER REFERENCES dim_cliente,
+  produto_id INTEGER REFERENCES dim_produto,
+  receita    NUMERIC(12, 2) CHECK (receita >= 0),
+  custo      NUMERIC(12, 2) CHECK (custo >= 0)
+);
+
+-- View que a ferramenta de BI consome, com as métricas já definidas em um só lugar
+CREATE VIEW vw_vendas_mensais AS
+SELECT
+  d.ano,
+  d.mes,
+  p.categoria,
+  c.regiao,
+  SUM(f.receita)                                   AS receita,
+  COUNT(*)                                         AS pedidos,
+  SUM(f.receita - f.custo) / NULLIF(SUM(f.receita), 0) AS margem_bruta
+FROM fato_pedidos f
+JOIN dim_data    d USING (data_id)
+JOIN dim_cliente c USING (cliente_id)
+JOIN dim_produto p USING (produto_id)
+GROUP BY 1, 2, 3, 4;`
+  },
+  {
+    id: 'pandas', tab: 'Python: limpeza testável', file: 'limpeza.py', lang: 'py', code:
+`import numpy as np
+import pandas as pd
+
+
+def parse_brl(valor) -> float:
+    """'R$ 1.234,50' vira 1234.5. Marcadores como 'N/D' viram NaN, nunca zero."""
+    if valor is None or (isinstance(valor, float) and np.isnan(valor)):
+        return np.nan
+    if isinstance(valor, (int, float)):
+        return float(valor)
+    texto = str(valor).strip().upper()
+    if texto in {"", "N/D", "NA"}:
+        return np.nan
+    return float(texto.replace("R$", "").replace(".", "").replace(",", "."))
+
+
+def limite_superior(serie: pd.Series, k: float = 2.5) -> float:
+    """IQR em escala log: valores monetários têm cauda longa."""
+    lq1, lq3 = np.log(serie.dropna()[serie > 0]).quantile([0.25, 0.75])
+    return float(np.exp(lq3 + k * (lq3 - lq1)))
+
+
+def limpar_pedidos(df: pd.DataFrame) -> pd.DataFrame:
+    df = df.drop_duplicates(subset="id_pedido", keep="first").copy()
+    df["valor"] = df["valor"].map(parse_brl)
+    teto = limite_superior(df["valor"])
+    return df.assign(
+        data=lambda d: pd.to_datetime(d["data"], format="mixed", dayfirst=True),
+        valor_limitado=lambda d: d["valor"] > teto,
+        valor_imputado=lambda d: d["valor"].isna(),
+        valor=lambda d: d["valor"].clip(upper=teto).fillna(
+            d.groupby("categoria")["valor"].transform("median")
+        ),
+    )
+
+
+def test_parse_brl():
+    assert parse_brl("R$ 1.234,50") == 1234.5
+    assert np.isnan(parse_brl("N/D"))`
+  }
+];
+let snipIdx = 0;
+function renderSnippet() {
+  const s = SNIPPETS[snipIdx];
+  $('#code-title').textContent = s.file;
+  $('#code-pre').innerHTML = hl(s.code, s.lang);
+  $$('#code-tabs .tab').forEach((t, i) => { t.setAttribute('aria-selected', i === snipIdx); t.tabIndex = i === snipIdx ? 0 : -1; });
+}
+function initCode() {
+  $('#code-tabs').innerHTML = SNIPPETS.map((s, i) => `<button class="tab" role="tab" data-i="${i}" aria-selected="${i === 0}">${esc(s.tab)}</button>`).join('');
+  $$('#code-tabs .tab').forEach(t => t.addEventListener('click', () => { snipIdx = +t.dataset.i; renderSnippet(); }));
+  $('#code-copy').addEventListener('click', async () => toast((await copyText(SNIPPETS[snipIdx].code)) ? 'Código copiado' : 'Não foi possível copiar. Selecione o texto manualmente.'));
+  renderSnippet();
+}
+
+const METODO = [
+  { n: 'Entender a pergunta', desc: 'Antes de abrir qualquer ferramenta, alinho qual decisão será tomada com o resultado e quem vai usá-lo. Uma pergunta bem feita evita semanas de análise inútil.', how: ['Levanto a decisão de negócio e o público do resultado', 'Defino cada métrica com nome e regra de cálculo', 'Combino prazo e o que fica fora do escopo'], out: ['Glossário de métricas', 'Escopo combinado por escrito'] },
+  { n: 'Coletar e integrar', desc: 'Mapeio de onde vem cada dado e em que nível de detalhe ele está. Extração e integração precisam poder ser repetidas sem trabalho manual.', how: ['Identifico as fontes e o grão de cada tabela', 'Extraio com SQL ou scripts em Python', 'Registro filtros e regras aplicadas'], out: ['Base integrada e reprodutível', 'Dicionário de dados'] },
+  { n: 'Modelar', desc: 'Organizo os dados em modelo dimensional (estrela): fatos no centro, dimensões ao redor. Isso deixa as consultas simples e as métricas consistentes.', how: ['Separo fatos e dimensões', 'Escolho o grão da tabela fato', 'Defino chaves e relacionamentos'], out: ['Modelo estrela documentado', 'Tabelas e views prontas para o BI'] },
+  { n: 'Validar e tratar', desc: 'Nenhum número vai para uma reunião sem passar por checagens. Trato o que dá para tratar e sinalizo o que foi alterado, em vez de esconder.', how: ['Checo duplicados, nulos, formatos e valores extremos', 'Reconcilio totais com a fonte', 'Marco imputações e limites aplicados'], out: ['Relatório de qualidade dos dados', 'Regras de tratamento documentadas'] },
+  { n: 'Visualizar', desc: 'Escolho o gráfico pela pergunta que ele responde, não pela moda. Menos cor, títulos que já dizem a conclusão e filtros só onde ajudam a decidir.', how: ['Relaciono o tipo de gráfico ao tipo de pergunta', 'Uso poucas cores e rótulos diretos', 'Escrevo os insights em linguagem simples'], out: ['Painel ou relatório', 'Resumo com as conclusões principais'] },
+  { n: 'Entregar e acompanhar', desc: 'A análise só vale quando alguém age sobre ela. Apresento a leitura para quem decide, ouço as dúvidas e deixo tudo documentado para ser atualizado.', how: ['Apresento o resultado para quem decide', 'Recolho dúvidas e ajusto o painel', 'Documento como atualizar e onde estão as regras'], out: ['Apresentação e documentação', 'Rotina de atualização definida'] }
+];
+let metIdx = 0;
+function renderMetodo() {
+  $('#arch').innerHTML = METODO.map((a, i) => `<button class="stage" type="button" data-i="${i}" aria-pressed="${i === metIdx}"><span class="n">${i + 1}</span>${esc(a.n)}</button>`).join('');
+  $$('#arch .stage').forEach(b => b.addEventListener('click', () => { metIdx = +b.dataset.i; renderMetodo(); }));
+  const a = METODO[metIdx];
+  $('#arch-detail').innerHTML = `<div class="panel"><h3>${esc(a.n)}</h3><p class="muted">${esc(a.desc)}</p></div>
+    <div class="panel"><h4>O que eu faço</h4><ul>${a.how.map(t => `<li>${esc(t)}</li>`).join('')}</ul></div>
+    <div class="panel"><h4>O que eu entrego</h4><ul>${a.out.map(t => `<li>${esc(t)}</li>`).join('')}</ul></div>`;
+}
+
+const SKILLS = [
+  ['Análise e consulta', ['SQL', 'Python e pandas', 'Estatística descritiva', 'Testes A/B', 'Análise de coortes', 'Segmentação RFM', 'Séries temporais básicas']],
+  ['Business Intelligence', ['Modelagem dimensional', 'Power BI', 'Excel', 'Definição de KPIs e métricas', 'Visualização de dados']],
+  ['Dados e qualidade', ['ETL', 'Limpeza e tratamento', 'Validação de dados', 'Bancos de dados relacionais', 'Git']],
+  ['Comunicação', ['Storytelling com dados', 'Tradução de pedidos de negócio em métricas', 'Documentação']]
+];
+function renderSkills() {
+  $('#skills').innerHTML = SKILLS.map(([g, list]) => `<div class="sk-group"><h3>${esc(g)}</h3><div class="sk-chips">${list.map(n => `<span class="chip">${esc(n)}</span>`).join('')}</div></div>`).join('');
+}
+
+function renderExperience() {
+  const list = PROFILE.experience || [], box = $('#expBlock');
+  if (!list.length) { box.hidden = true; return; }
+  box.hidden = false;
+  $('#expList').innerHTML = list.map(e => `<li><div class="when">${esc(e.when)}</div><div><h3>${esc(e.title)}</h3><p class="org">${esc(e.org)}</p>${e.bullets && e.bullets.length ? `<ul>${e.bullets.map(b => `<li>${esc(b)}</li>`).join('')}</ul>` : ''}</div></li>`).join('');
+}
+function renderContacts() {
+  const rows = [];
+  rows.push(`<li><div><span>E-mail</span><br><a href="mailto:${esc(PROFILE.email)}">${esc(PROFILE.email)}</a></div><button class="btn ghost sm" type="button" data-copy="${esc(PROFILE.email)}" data-msg="E-mail copiado">Copiar</button></li>`);
+  rows.push(`<li><div><span>Telefone e WhatsApp</span><br><a href="tel:+${esc(PROFILE.whatsapp)}">${esc(PROFILE.phone)}</a></div><span style="display:flex;gap:8px"><a class="btn sm" href="https://wa.me/${esc(PROFILE.whatsapp)}" target="_blank" rel="noopener">WhatsApp</a><button class="btn ghost sm" type="button" data-copy="${esc(PROFILE.phone)}" data-msg="Telefone copiado">Copiar</button></span></li>`);
+  if (PROFILE.linkedin) rows.push(`<li><div><span>LinkedIn</span><br><a href="${esc(PROFILE.linkedin)}" target="_blank" rel="noopener">${esc(PROFILE.linkedin.replace(/^https?:\/\//, ''))}</a></div></li>`);
+  if (PROFILE.github) rows.push(`<li><div><span>GitHub</span><br><a href="${esc(PROFILE.github)}" target="_blank" rel="noopener">${esc(PROFILE.github.replace(/^https?:\/\//, ''))}</a></div></li>`);
+  $('#contactList').innerHTML = rows.join('');
+  $$('#contactList [data-copy]').forEach(b => b.addEventListener('click', async () => toast((await copyText(b.dataset.copy)) ? b.dataset.msg : 'Não foi possível copiar')));
+}
+
+/* =====================================================================
+   HERÓI: consulta rodando ao vivo
+   ===================================================================== */
+function heroConsole() {
+  const q = `SELECT categoria,\n       SUM(receita) AS receita,\n       ROUND(SUM(receita - custo) / SUM(receita), 3) AS margem\nFROM fato_pedidos\nWHERE data_pedido >= '2025-09-01'\nGROUP BY 1\nORDER BY 2 DESC\nLIMIT 5;`;
+  const t0 = performance.now();
+  const g = groupBy(sel({ from: 24, to: NM, reg: -1, cat: -1 }), o => o.cat);
+  const rows = [...g.entries()].map(([k, l]) => ({ n: CATS[k].n, ...agg(l) })).sort((a, b) => b.rev - a.rev).slice(0, 5);
+  const ms = Math.max(1, Math.round(performance.now() - t0));
+  const pre = $('#conSql'), tb = $('#conRes'), st = $('#conStatus');
+  tb.innerHTML = rows.map(r => `<tr class="rw"><td>${esc(r.n)}</td><td>${fmtBRL(r.rev)}</td><td>${fmtNum(r.mg, 3)}</td></tr>`).join('');
+  const done = () => { st.textContent = `executada em ${ms} ms`; $$('.rw', tb).forEach((r, i) => setTimeout(() => r.classList.add('on'), reduceMotion() ? 0 : 110 * i)); };
+  if (reduceMotion()) { pre.innerHTML = hl(q, 'sql'); done(); return; }
+  let i = 0;
+  const step = () => {
+    i = Math.min(q.length, i + 3);
+    pre.innerHTML = hl(q.slice(0, i), 'sql') + (i < q.length ? '<span class="t-c">\u258D</span>' : '');
+    if (i < q.length) setTimeout(step, 18); else done();
+  };
+  step();
+}
+
+/* =====================================================================
+   INICIALIZAÇÃO
+   ===================================================================== */
+const prefersDark = () => typeof matchMedia === 'function' && matchMedia('(prefers-color-scheme: dark)').matches;
+const RENDER = { dash: renderDash, cohort: renderCohort, rfm: renderRFM, forecast: renderForecast, ab: renderAB, dq: renderDQ, sql: renderSQL };
+let activeTab = 'dash';
+function activateTab(name, focus) {
+  activeTab = name;
+  $$('#labTabs .tab').forEach(t => { const on = t.dataset.tab === name; t.setAttribute('aria-selected', on); t.tabIndex = on ? 0 : -1; if (on && focus) t.focus(); });
+  $$('.tabpanel').forEach(p => { p.hidden = p.id !== 'p-' + name; });
+  RENDER[name]();
+}
+function setTheme(t) {
+  document.documentElement.dataset.theme = t;
+  try { localStorage.setItem('pf-theme', t); } catch (e) { /* armazenamento indisponível */ }
+  RENDER[activeTab](); rerenderGallery();
+}
+function init() {
+  try { const t = localStorage.getItem('pf-theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch (e) { /* ignora */ }
+  $('#brandName').textContent = PROFILE.brand; $('#heroName').textContent = PROFILE.name; $('#footName').textContent = PROFILE.name;
+  $('#footYear').textContent = new Date().getFullYear();
+  document.title = `${PROFILE.name} | ${PROFILE.role}`;
+  $('#aboutAge').textContent = PROFILE.age;
+  $('#facts').innerHTML = [[String(GALLERY.length), 'tipos de gráfico na galeria'], ['7', 'análises interativas completas'], [fmtInt(ORD.length), 'pedidos analisados no laboratório'], ['6', 'etapas de tratamento na demo de qualidade']].map(f => `<div class="fact"><b class="num">${esc(f[0])}</b><span>${esc(f[1])}</span></div>`).join('');
+  $('#labMeta').textContent = `${fmtInt(CUS.length)} clientes e ${fmtInt(ORD.length)} pedidos sintéticos (${monthLabel(0)} a ${monthLabel(NM - 1)})`;
+  renderContacts(); renderExperience();
+  $('#themeBtn').addEventListener('click', () => {
+    const cur = document.documentElement.dataset.theme || (prefersDark() ? 'dark' : 'light');
+    setTheme(cur === 'dark' ? 'light' : 'dark');
+  });
+
+  fillSelect($('#f-reg'), REGS, 'Todas as regiões'); fillSelect($('#f-cat'), CAT_NAMES, 'Todas as categorias');
+  $('#f-reg').value = '-1'; $('#f-cat').value = '-1';
+  $('#f-period').addEventListener('change', e => { DS.len = +e.target.value; renderDash(); });
+  $('#f-reg').addEventListener('change', e => { DS.reg = +e.target.value; renderDash(); });
+  $('#f-cat').addEventListener('change', e => { DS.cat = +e.target.value; renderDash(); });
+  $$('#coh-mode button').forEach(b => b.addEventListener('click', () => { cohMode = b.dataset.m; $$('#coh-mode button').forEach(x => x.setAttribute('aria-pressed', x === b)); renderCohort(); }));
+  fillSelect($('#fc-cat'), CAT_NAMES, 'Todas as categorias'); $('#fc-cat').value = '-1';
+  $('#fc-cat').addEventListener('change', e => { FC.cat = +e.target.value; renderForecast(); });
+  $('#fc-h').addEventListener('input', e => { FC.h = +e.target.value; $('#fc-hv').textContent = FC.h; renderForecast(); });
+  ['#ab-na', '#ab-ca', '#ab-nb', '#ab-cb', '#ab-conf'].forEach(id => $(id).addEventListener('input', renderAB));
+  $('#dq-all').addEventListener('click', () => { DQ_STEPS.forEach(s => DQ_ON.add(s.id)); renderDQ(); });
+  $('#dq-none').addEventListener('click', () => { DQ_ON.clear(); renderDQ(); });
+  const tabs = $$('#labTabs .tab');
+  tabs.forEach((t, i) => {
+    t.addEventListener('click', () => activateTab(t.dataset.tab));
+    t.addEventListener('keydown', e => {
+      const k = e.key; if (k !== 'ArrowRight' && k !== 'ArrowLeft' && k !== 'Home' && k !== 'End') return;
+      e.preventDefault();
+      const j = k === 'Home' ? 0 : k === 'End' ? tabs.length - 1 : (i + (k === 'ArrowRight' ? 1 : -1) + tabs.length) % tabs.length;
+      activateTab(tabs[j].dataset.tab, true);
+    });
+  });
+  initSQL(); initCode(); renderMetodo(); renderSkills(); initGallery();
+  activateTab('dash');
+  heroConsole();
+  if (typeof matchMedia === 'function') { const mq = matchMedia('(prefers-color-scheme: dark)'); if (mq.addEventListener) mq.addEventListener('change', () => { if (!document.documentElement.dataset.theme) { RENDER[activeTab](); rerenderGallery(); } }); }
+}
+init();
+
+</script>
+</body>
+</html>
